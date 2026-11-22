@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINK SENTINEL V3.0</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#070b12;
+color:#e8f1ff;
+font-family:Arial,sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px
+}
+.container{
+width:100%;
+max-width:500px;
+background:#101927;
+border:1px solid #263b50;
+border-radius:18px;
+padding:25px;
+box-shadow:0 0 35px #00b7ff18
+}
+h1{
+text-align:center;
+color:#00d5ff;
+letter-spacing:3px;
+font-size:25px
+}
+.subtitle{
+text-align:center;
+color:#8499ae;
+font-size:12px;
+letter-spacing:2px
+}
+input{
+width:100%;
+padding:15px;
+margin-top:25px;
+background:#080f19;
+border:1px solid #29435a;
+border-radius:9px;
+color:white;
+font-size:15px
+}
+button{
+width:100%;
+padding:15px;
+margin-top:15px;
+background:#00bde8;
+border:0;
+border-radius:9px;
+font-weight:bold;
+font-size:15px;
+  
+cursor:pointer
+}
+#result{
+margin-top:20px;
+padding:18px;
+border-radius:10px;
+background:#080f19;
+text-align:center;
+display:none
+}
+.safe{color:#00e58b}
+.warning{color:#ffbd45}
+.danger{color:#ff4545}
+.footer{
+text-align:center;
+color:#52677d;
+font-size:11px;
+margin-top:25px
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>LINK SENTINEL</h1>
+<div class="subtitle">V3.0 | ADVANCED URL ANALYSIS</div>
+
+<input id="url" type="text" placeholder="Enter URL to analyze">
+
+<button onclick="scan()">START SECURITY SCAN</button>
+
+<div id="result"></div>
+
+<div class="footer">
+SYSTEM ONLINE | SECURITY CORE ACTIVE
+<br>DEVELOPED BY ZAIN
+</div>
+</div>
+
+<script>
+function scan(){
+let value=document.getElementById("url").value.trim();
+let result=document.getElementById("result");
+
+result.style.display="block";
+
+if(!value){
+result.innerHTML="<span class='warning'>PLEASE ENTER A URL</span>";
+return;
+}
+
+let suspicious=[
+"login-verify","account-suspended",
+"free-gift","password-reset",
+"secure-update","verify-account"
+];
+
+let score=0;
+
+try{
+let address=new URL(
+value.includes("://")?value:"https://"+value
+);
+
+if(address.protocol!=="https:")score+=1;
+if(address.hostname.includes("@"))score+=3;
+if(address.hostname.split(".").length>4)score+=1;
+if(address.hostname.startsWith("xn--"))score+=2;
+
+suspicious.forEach(word=>{
+if(value.toLowerCase().includes(word))score+=2;
+});
+
+if(/^\d+\.\d+\.\d+\.\d+$/.test(address.hostname))score+=2;
+
+if(score>=3){
+result.innerHTML="<h2 class='danger'>⚠ SUSPICIOUS URL</h2><p>Potential warning signs detected.</p>";
+}else{
+result.innerHTML="<h2 class='safe'>PRELIMINARY CHECK PASSED</h2><p>No basic warning signs detected.</p>";
+}
+}catch(e){
+result.innerHTML="<h2 class='danger'>INVALID URL</h2>";
+}
+}
+</script>
+</body>
+</html>
