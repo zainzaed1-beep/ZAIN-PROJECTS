@@ -1,0 +1,19 @@
+
+{
+  "name": "ZAIN SENTINEL",
+  "short_name": "ZAIN",
+  "description": "ZAIN PROJECT - URL Security Scanner",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#070b13",
+  "theme_color": "#080d18",
+  "icons": [
+    {
+      "src": "zain_classic_blue_Z.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
