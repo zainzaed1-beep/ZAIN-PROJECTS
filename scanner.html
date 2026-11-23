@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071426">
+<title>ZAIN SENTINEL X | ZAIN PROJECT</title>
+<link rel="icon" type="image/jpeg" href="zain_classic_blue_Z.jpg">
+<link rel="apple-touch-icon" href="zain_classic_blue_Z.jpg">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{
+ --bg:#050b14;--panel:#0b1728;--panel2:#0e2035;--line:#1c3856;
+ --blue:#168cff;--cyan:#35d7ff;--text:#eaf4ff;--muted:#8ba6c2;
+ --green:#20d9a0;--orange:#ffbd59;--red:#ff5368;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;color:var(--text);
+ background:radial-gradient(ellipse at 50% -20%,#123b67 0%,#071426 42%,var(--bg) 78%);
+ font-family:Inter,Arial,sans-serif;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.shell{width:min(1120px,100%);margin:auto;padding:24px 18px 42px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:26px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+ width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+ background:linear-gradient(145deg,#1b9dff,#073d80);border:1px solid #50caff;
+ box-shadow:0 0 26px #078dff44;font-size:25px;font-weight:900;color:white
+}
+.brand-name{font-weight:900;letter-spacing:2.5px;font-size:16px}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:3px;margin-top:4px}
+.live{border:1px solid #1c5d58;background:#09251f;color:var(--green);padding:8px 12px;border-radius:30px;font-size:11px;letter-spacing:1px;white-space:nowrap}
+.hero{text-align:center;padding:24px 8px 30px}
+.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:4px;font-weight:800}
+h1{font-size:clamp(30px,6vw,54px);letter-spacing:3px;margin:12px 0 8px;line-height:1.08}
+h1 span{color:var(--cyan);text-shadow:0 0 24px #16a8ff66}
+.hero p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 auto;max-width:600px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.stat,.panel{background:linear-gradient(145deg,#0e2035dd,#091525f2);border:1px solid var(--line);border-radius:17px;box-shadow:0 14px 38px #0003}
+.stat{padding:17px 18px}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:1.7px}
+.stat-value{font-size:26px;font-weight:900;margin-top:8px}
+.stat-note{font-size:11px;color:#7895b3;margin-top:4px}
+.panel{padding:22px;margin-bottom:16px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}
+.panel-title{font-size:12px;letter-spacing:2px;font-weight:900}
+.panel-tag{font-size:10px;color:var(--cyan);border:1px solid #20547a;border-radius:30px;padding:6px 9px}
+.label{display:block;font-size:11px;color:#a9bfd5;letter-spacing:1.6px;margin-bottom:10px}
+.input-wrap{display:flex;gap:10px}
+input{
+ flex:1;min-width:0;padding:16px 15px;border-radius:11px;border:1px solid #294c6d;
+ background:#06111f;color:white;outline:none;font-size:14px
+}
+input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #1cbcff19}
+.primary{
+ border:0;border-radius:11px;padding:0 22px;color:#03101d;font-weight:900;
+ background:linear-gradient(110deg,#36d9ff,#168cff);box-shadow:0 8px 22px #087edc33
+}
+.primary:hover{filter:brightness(1.08)}
+.secondary{background:#102941;color:#cfeaff;border:1px solid #285276;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:800}
+.hint{font-size:11px;color:#7895b3;margin:11px 0 0;line-height:1.6}
+.result{display:none;margin-top:20px;border:1px solid #294765;border-radius:14px;padding:18px;background:#06111f}
+.result-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.verdict{font-size:17px;font-weight:900;letter-spacing:1px}
+.score{font-size:30px;font-weight:900}
+.green{color:var(--green)}.orange{color:var(--orange)}.red{color:var(--red)}
+.meter{height:8px;background:#1a2d42;border-radius:20px;overflow:hidden;margin:12px 0 15px}
+.meter-fill{height:100%;width:0%;border-radius:20px;transition:width .35s}
+.domain{font-size:12px;color:#a9c3dc;overflow-wrap:anywhere;margin-bottom:12px}
+.reason{padding:11px 12px;margin-top:8px;border-radius:9px;background:#0d2033;border:1px solid #1b3853;color:#c9dced;font-size:12px;line-height:1.5}
+.notice{font-size:11px;color:#819bb5;line-height:1.7;margin:14px 0 0}
+.history{display:grid;gap:8px}
+.history-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;background:#081626;border:1px solid #1b3550;border-radius:10px;font-size:11px}
+.history-main{min-width:0;overflow-wrap:anywhere}
+.history-host{font-weight:800;color:#dceeff;margin-bottom:4px}
+.history-meta{color:#829db8}
+.pill{font-size:10px;font-weight:900;padding:6px 8px;border-radius:30px;white-space:nowrap}
+.pill.green{background:#0b3028}.pill.orange{background:#392a12}.pill.red{background:#3b1720}
+.empty{color:#7892ac;font-size:12px;padding:12px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.feature{padding:14px;background:#081626;border:1px solid #1a3550;border-radius:12px}
+.feature-icon{font-size:19px;margin-bottom:8px}
+.feature strong{font-size:11px;letter-spacing:.5px}
+.feature p{font-size:10px;color:#819bb5;line-height:1.6;margin:6px 0 0}
+.footer{text-align:center;color:#607b96;font-size:10px;letter-spacing:1.4px;line-height:2.1;padding:16px}
+@media(max-width:700px){
+ .shell{padding:17px 13px 30px}.grid{gap:9px}.stat{padding:14px 12px}.stat-value{font-size:22px}
+ .input-wrap{flex-direction:column}.primary{padding:15px}.features{grid-template-columns:1fr}
+ .panel{padding:17px}.hero{padding:17px 4px 23px}
+}
+@media(max-width:420px){.grid{grid-template-columns:1fr}.topbar{align-items:flex-start}.live{font-size:9px}}
+</style>
+</head>
+<body>
+<div class="shell">
+ <header class="topbar">
+  <div class="brand">
+   <div class="brand-mark">Z</div>
+   <div><div class="brand-name">ZAIN PROJECT</div><div class="brand-sub">CYBER SECURITY LAB</div></div>
+  </div>
+  <div class="live">● SYSTEM ONLINE</div>
+ </header>
+
+ <section class="hero">
+  <div class="eyebrow">ADVANCED URL ANALYSIS</div>
+  <h1>ZAIN <span>SENTINEL X</span></h1>
+  <p>A focused URL inspection dashboard designed to identify common suspicious address patterns and explain potential warning signs.</p>
+ </section>
+
+ <section class="grid" aria-label="Scan statistics">
+  <div class="stat"><div class="stat-label">TOTAL SCANS</div><div class="stat-value" id="totalScans">0</div><div class="stat-note">Saved on this device</div></div>
+  <div class="stat"><div class="stat-label">HIGH RISK FLAGS</div><div class="stat-value red" id="highRisk">0</div><div class="stat-note">High indicator results</div></div>
+  <div class="stat"><div class="stat-label">LAST SCAN</div><div class="stat-value" id="lastScan" style="font-size:17px">—</div><div class="stat-note">Local scan history</div></div>
+ </section>
+
+ <section class="panel">
+  <div class="panel-head"><div class="panel-title">01 / URL SCANNER</div><div class="panel-tag">LOCAL ANALYSIS ENGINE</div></div>
+  <label class="label" for="url">ENTER WEBSITE ADDRESS</label>
+  <div class="input-wrap">
+   <input id="url" type="text" placeholder="https://example.com" autocomplete="url" spellcheck="false">
+   <button class="primary" id="scanButton" type="button">ANALYZE URL</button>
+  </div>
+  <p class="hint">Enter a complete website address. The analysis runs locally in your browser; the address is not sent to a threat-intelligence service.</p>
+
+  <div id="result" class="result" aria-live="polite">
+   <div class="result-top"><div id="verdict" class="verdict"></div><div id="score" class="score"></div></div>
+   <div class="meter"><div id="meterFill" class="meter-fill"></div></div>
+   <div id="domain" class="domain"></div>
+   <div id="reasons"></div>
+   <p id="notice" class="notice"></p>
+   <div class="actions"><button class="secondary" id="copyReport" type="button">COPY REPORT</button></div>
+  </div>
+ </section>
+
+ <section class="panel">
+  <div class="panel-head"><div class="panel-title">02 / ANALYSIS MODULES</div><div class="panel-tag">ACTIVE</div></div>
+  <div class="features">
+   <div class="feature"><div class="feature-icon">⌕</div><strong>DOMAIN INSPECTION</strong><p>Checks domain structure, length and subdomain patterns.</p></div>
+   <div class="feature"><div class="feature-icon">◇</div><strong>PHISHING INDICATORS</strong><p>Looks for suspicious wording and unexpected brand references.</p></div>
+   <div class="feature"><div class="feature-icon">▤</div><strong>RISK SCORING</strong><p>Combines selected indicators into an explainable score.</p></div>
+  </div>
+ </section>
+
+ <section class="panel">
+  <div class="panel-head"><div class="panel-title">03 / SCAN HISTORY</div><button class="secondary" id="clearHistory" type="button">CLEAR HISTORY</button></div>
+  <div id="history" class="history"><div class="empty">No scans yet.</div></div>
+ </section>
+
+ <footer class="footer">ZAIN PROJECT © 2026<br>DESIGNED & DEVELOPED AS A STUDENT CYBERSECURITY PROJECT<br>ANALYSIS IS HEURISTIC — NOT A SAFETY GUARANTEE</footer>
+</div>
+
+<script>
+"use strict";
+const suspiciousWords=[
+ "login-verify","account-suspended","free-gift","verify-account",
+ "password-reset","secure-update","wallet-connect","claim-prize",
+ "confirm-password","urgent-payment","signin-verify"
+];
+const shorteners=["bit.ly","tinyurl.com","t.co","is.gd","cutt.ly","shorturl.at","ow.ly"];
+const suspiciousTlds=[".zip",".mov",".click",".top",".work",".gq"];
+const brands=["paypal","google","microsoft","apple","amazon","facebook","instagram","netflix"];
+const HISTORY_KEY="zainHistory";
+let latestReport="";
+
+function readHistory(){
+ try{
+  const data=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
+  return Array.isArray(data)?data:[];
+ }catch(e){return [];}
+}
+function writeHistory(data){
+ try{localStorage.setItem(HISTORY_KEY,JSON.stringify(data));}catch(e){}
+}
+function updateStats(){
+ const data=readHistory();
+ document.getElementById("totalScans").textContent=data.length;
+ document.getElementById("highRisk").textContent=data.filter(x=>x.level==="HIGH RISK INDICATORS").length;
+ document.getElementById("lastScan").textContent=data.length?data[0].time.split(",")[0]:"—";
+}
+function showHistory(){
+ const box=document.getElementById("history");
+ const data=readHistory();
+ box.replaceChildren();
+ if(!data.length){
+  const empty=document.createElement("div");empty.className="empty";empty.textContent="No scans yet.";box.appendChild(empty);
+  updateStats();return;
+ }
+ data.forEach(entry=>{
+  const row=document.createElement("div");row.className="history-item";
+  const main=document.createElement("div");main.className="history-main";
+  const host=document.createElement("div");host.className="history-host";host.textContent=entry.host;
+  const meta=document.createElement("div");meta.className="history-meta";meta.textContent=entry.level+" • "+entry.points+"/100 • "+entry.time;
+  main.append(host,meta);
+  const pill=document.createElement("span");pill.className="pill "+(entry.points>=50?"red":entry.points>=25?"orange":"green");
+  pill.textContent=entry.points>=50?"HIGH":entry.points>=25?"CAUTION":"LOW FLAGS";
+  row.append(main,pill);box.appendChild(row);
+ });
+ updateStats();
+}
+function showError(message){
+ const result=document.getElementById("result");
+ result.style.display="block";
+ document.getElementById("verdict").textContent=message;
+ document.getElementById("verdict").className="verdict orange";
+ document.getElementById("score").textContent="";
+ document.getElementById("meterFill").style.width="0%";
+ document.getElementById("domain").textContent="";
+ document.getElementById("reasons").replaceChildren();
+ document.getElementById("notice").textContent="Check the address and try again.";
+ latestReport=message;
+}
+function scan(){
+ const raw=document.getElementById("url").value.trim();
+ if(!raw){showError("PLEASE ENTER A URL");return;}
+ if(raw.length>2048){showError("URL TOO LONG");return;}
+ let url;
+ try{
+  const prepared=/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)?raw:"https://"+raw;
+  url=new URL(prepared);
+  if(!["http:","https:"].includes(url.protocol)||!url.hostname.includes("."))throw new Error("Invalid URL");
+ }catch(e){showError("INVALID URL");return;}
+
+ let points=0;const findings=[];const host=url.hostname.toLowerCase();const full=raw.toLowerCase();
+ function flag(message,value){points+=value;findings.push(message);}
+ if(url.protocol==="http:")flag("The connection does not use HTTPS.",10);
+ if(url.username||url.password)flag("The address contains embedded login information.",25);
+ if(/^\d{1,3}(\.\d{1,3}){3}$/.test(host))flag("The address uses an IP address instead of a typical domain name.",20);
+ if(host.startsWith("xn--")||host.includes(".xn--"))flag("The domain contains an internationalized punycode label.",20);
+ if(host.split(".").length>=5)flag("The domain has an unusually large number of subdomains.",15);
+ if(host.length>45)flag("The domain name is unusually long.",10);
+ if(raw.length>180)flag("The full URL is unusually long.",10);
+ if(suspiciousTlds.some(tld=>host.endsWith(tld)))flag("The domain uses a top-level domain that deserves extra scrutiny.",15);
+ if(shorteners.includes(host))flag("This is a URL shortening service; its destination is not visible here.",15);
+ suspiciousWords.forEach(word=>{if(full.includes(word))flag("Suspicious wording detected: "+word,12);});
+ brands.forEach(brand=>{
+  if(host.includes(brand)&&!host.endsWith(brand+".com")&&host!==brand+".com"){
+   flag("A known brand name appears in an unexpected domain.",20);
+  }
+ });
+ if(url.href.includes("@"))flag("The URL contains an @ character.",10);
+ points=Math.min(points,100);
+
+ let level,css;
+ if(points>=50){level="HIGH RISK INDICATORS";css="red";}
+ else if(points>=25){level="CAUTION";css="orange";}
+ else{level="NO OBVIOUS WARNING SIGNS";css="green";}
+
+ document.getElementById("result").style.display="block";
+ const verdict=document.getElementById("verdict");verdict.textContent=level;verdict.className="verdict "+css;
+ const score=document.getElementById("score");score.textContent=points+"/100";score.className="score "+css;
+ const meter=document.getElementById("meterFill");meter.style.width=points+"%";
+ meter.style.background=points>=50?"var(--red)":points>=25?"var(--orange)":"var(--green)";
+ document.getElementById("domain").textContent="DOMAIN: "+host;
+ const reasons=document.getElementById("reasons");reasons.replaceChildren();
+ if(!findings.length){
+  const item=document.createElement("div");item.className="reason";item.textContent="No basic warning indicators were detected.";reasons.appendChild(item);
+ }else{
+  findings.forEach(message=>{const item=document.createElement("div");item.className="reason";item.textContent="⚠ "+message;reasons.appendChild(item);});
+ }
+ const notice="This is a local heuristic analysis, not a reputation database check. A low score does not prove a URL is safe. Do not enter passwords or personal information on an untrusted site.";
+ document.getElementById("notice").textContent=notice;
+ latestReport="ZAIN SENTINEL X REPORT\nURL: "+raw+"\nDOMAIN: "+host+"\nRESULT: "+level+"\nSCORE: "+points+"/100\nFINDINGS:\n"+(findings.length?findings.map(x=>"- "+x).join("\n"):"- No basic warning indicators detected.")+"\n\nNote: Heuristic analysis only; not a safety guarantee.";
+ const history=readHistory();
+ history.unshift({host,level,points,time:new Date().toLocaleString()});
+ writeHistory(history.slice(0,10));showHistory();
+}
+document.getElementById("scanButton").addEventListener("click",scan);
+document.getElementById("url").addEventListener("keydown",e=>{if(e.key==="Enter")scan();});
+document.getElementById("clearHistory").addEventListener("click",()=>{
+ try{localStorage.removeItem(HISTORY_KEY);}catch(e){}
+ showHistory();
+});
+document.getElementById("copyReport").addEventListener("click",async()=>{
+ if(!latestReport)return;
+ try{
+  await navigator.clipboard.writeText(latestReport);
+  document.getElementById("copyReport").textContent="REPORT COPIED";
+ }catch(e){
+  document.getElementById("copyReport").textContent="COPY NOT AVAILABLE";
+ }
+});
+showHistory();
+</script>
+</body>
+</html>
