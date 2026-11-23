@@ -1,146 +1,336 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LINK SENTINEL V3.0</title>
+<meta name="theme-color" content="#080d18">
+<title>ZAIN PROJECT | ZAIN SENTINEL</title>
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;
-background:#070b12;
-color:#e8f1ff;
-font-family:Arial,sans-serif;
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px
+ margin:0;background:#070b13;color:#eaf3ff;
+ font-family:Arial,sans-serif;padding:20px;
+ min-height:100vh
 }
-.container{
-width:100%;
-max-width:500px;
-background:#101927;
-border:1px solid #263b50;
-border-radius:18px;
-padding:25px;
-box-shadow:0 0 35px #00b7ff18
+.container{max-width:650px;margin:25px auto}
+.header{text-align:center;padding:25px 10px}
+.logo{font-size:32px;font-weight:900;letter-spacing:4px;color:#00d9ff}
+.sub{color:#8ba3bc;letter-spacing:4px;font-size:12px;margin-top:9px}
+.status{color:#00e5a0;font-size:12px;margin-top:20px}
+.panel{
+ background:#101a29;border:1px solid #263b53;
+ border-radius:15px;padding:20px;margin-bottom:16px;
+ box-shadow:0 10px 35px #0005
 }
-h1{
-text-align:center;
-color:#00d5ff;
-letter-spacing:3px;
-font-size:25px
-}
-.subtitle{
-text-align:center;
-color:#8499ae;
-font-size:12px;
-letter-spacing:2px
-}
+.label{font-size:12px;color:#9bb1c9;letter-spacing:2px}
 input{
-width:100%;
-padding:15px;
-margin-top:25px;
-background:#080f19;
-border:1px solid #29435a;
-border-radius:9px;
-color:white;
-font-size:15px
+ width:100%;margin-top:13px;padding:16px;
+ background:#080f1b;border:1px solid #31506c;
+ border-radius:9px;color:white;font-size:15px;outline:none
 }
+input:focus{border-color:#00cfff}
 button{
-width:100%;
-padding:15px;
-margin-top:15px;
-background:#00bde8;
-border:0;
-border-radius:9px;
-font-weight:bold;
-font-size:15px;
-  
-cursor:pointer
+ width:100%;padding:15px;margin-top:14px;
+ border:0;border-radius:9px;background:#00cfff;
+ color:#04101a;font-weight:900;font-size:14px;
+ cursor:pointer
 }
-#result{
-margin-top:20px;
-padding:18px;
-border-radius:10px;
-background:#080f19;
-text-align:center;
-display:none
+button:active{opacity:.7}
+.result{
+ display:none;margin-top:20px;padding:18px;
+ background:#080f19;border:1px solid #29445e;border-radius:12px
 }
-.safe{color:#00e58b}
-.warning{color:#ffbd45}
-.danger{color:#ff4545}
-.footer{
-text-align:center;
-color:#52677d;
-font-size:11px;
-margin-top:25px
+.score{font-size:38px;font-weight:900;margin:10px 0}
+.green{color:#00e69a}
+.orange{color:#ffbd45}
+.red{color:#ff4b59}
+.reason{
+ padding:10px;margin-top:8px;background:#111e2d;
+ border-radius:7px;font-size:13px;color:#c9d7e7
 }
+.small{font-size:11px;color:#8298ae;line-height:1.7}
+.history-item{
+ padding:11px;border-bottom:1px solid #26384c;
+ font-size:12px;color:#b8c9dc;overflow-wrap:anywhere
+}
+.clear{
+ background:#263b50;color:white;font-size:12px;
+ padding:10px
+}
+.footer{text-align:center;color:#62778d;font-size:11px;margin:25px}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>LINK SENTINEL</h1>
-<div class="subtitle">V3.0 | ADVANCED URL ANALYSIS</div>
 
-<input id="url" type="text" placeholder="Enter URL to analyze">
+<div class="header">
+ <div class="logo">ZAIN PROJECT</div>
+ <div class="sub">ZAIN SENTINEL</div>
+ <div class="status">● SECURITY SYSTEM ONLINE</div>
+</div>
 
-<button onclick="scan()">START SECURITY SCAN</button>
+<div class="panel">
+ <div class="label">URL ANALYSIS MODULE</div>
+ <input id="url" type="text" placeholder="Enter website URL...">
+ <button onclick="scan()">START SECURITY SCAN</button>
 
-<div id="result"></div>
+ <div id="result" class="result">
+  <div class="label">ANALYSIS RESULT</div>
+  <div id="verdict"></div>
+  <div class="score" id="score"></div>
+  <div class="small" id="domain"></div>
+  <div id="reasons"></div>
+  <p class="small" id="notice"></p>
+ </div>
+</div>
+
+<div class="panel">
+ <div class="label">SECURITY ENGINE</div>
+ <p class="small">
+ URL STRUCTURE ANALYSIS: ACTIVE<br>
+ PHISHING INDICATORS: ACTIVE<br>
+ DOMAIN INSPECTION: ACTIVE<br>
+ RISK SCORING: ACTIVE
+ </p>
+</div>
+
+<div class="panel">
+ <div class="label">SCAN HISTORY</div>
+ <div id="history" class="small">No scans yet.</div>
+ <button class="clear" onclick="clearHistory()">CLEAR HISTORY</button>
+</div>
 
 <div class="footer">
-SYSTEM ONLINE | SECURITY CORE ACTIVE
-<br>DEVELOPED BY ZAIN
+ZAIN PROJECT © 2026<br>
+DEVELOPED BY ZAIN<br>
+CYBERSECURITY RESEARCH PROJECT
 </div>
 </div>
 
 <script>
-function scan(){
-let value=document.getElementById("url").value.trim();
-let result=document.getElementById("result");
-
-result.style.display="block";
-
-if(!value){
-result.innerHTML="<span class='warning'>PLEASE ENTER A URL</span>";
-return;
-}
-
-let suspicious=[
-"login-verify","account-suspended",
-"free-gift","password-reset",
-"secure-update","verify-account"
+const suspiciousWords=[
+ "login-verify","account-suspended","free-gift",
+ "verify-account","password-reset","secure-update",
+ "wallet-connect","claim-prize","confirm-password",
+ "urgent-payment","signin-verify"
 ];
 
-let score=0;
+const shorteners=[
+ "bit.ly","tinyurl.com","t.co","is.gd",
+ "cutt.ly","shorturl.at","ow.ly"
+];
 
-try{
-let address=new URL(
-value.includes("://")?value:"https://"+value
-);
+const suspiciousTlds=[
+ ".zip",".mov",".click",".top",".work",".gq"
+];
 
-if(address.protocol!=="https:")score+=1;
-if(address.hostname.includes("@"))score+=3;
-if(address.hostname.split(".").length>4)score+=1;
-if(address.hostname.startsWith("xn--"))score+=2;
+const brands=[
+ "paypal","google","microsoft","apple",
+ "amazon","facebook","instagram","netflix"
+];
 
-suspicious.forEach(word=>{
-if(value.toLowerCase().includes(word))score+=2;
-});
+function scan(){
+ const raw=document.getElementById("url").value.trim();
+ const result=document.getElementById("result");
+ const verdict=document.getElementById("verdict");
+ const scoreBox=document.getElementById("score");
+ const reasons=document.getElementById("reasons");
+ const domainBox=document.getElementById("domain");
+ const notice=document.getElementById("notice");
 
-if(/^\d+\.\d+\.\d+\.\d+$/.test(address.hostname))score+=2;
+ result.style.display="block";
+ reasons.replaceChildren();
 
-if(score>=3){
-result.innerHTML="<h2 class='danger'>⚠ SUSPICIOUS URL</h2><p>Potential warning signs detected.</p>";
-}else{
-result.innerHTML="<h2 class='safe'>PRELIMINARY CHECK PASSED</h2><p>No basic warning signs detected.</p>";
+ if(!raw){
+  verdict.textContent="PLEASE ENTER A URL";
+  verdict.className="orange";
+  scoreBox.textContent="";
+  domainBox.textContent="";
+  notice.textContent="";
+  return;
+ }
+
+ if(raw.length>2048){
+  verdict.textContent="URL TOO LONG";
+  verdict.className="red";
+  scoreBox.textContent="";
+  domainBox.textContent="";
+  notice.textContent="Please enter a shorter URL.";
+  return;
+ }
+
+ let url;
+ try{
+  const prepared=/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)
+   ?raw:"https://"+raw;
+  url=new URL(prepared);
+  if(!["http:","https:"].includes(url.protocol))throw Error();
+  if(!url.hostname.includes("."))throw Error();
+ }catch(e){
+  verdict.textContent="INVALID URL";
+  verdict.className="red";
+  scoreBox.textContent="";
+  domainBox.textContent="";
+  notice.textContent="Enter a valid web address.";
+  return;
+ }
+
+ let points=0;
+ let findings=[];
+ const host=url.hostname.toLowerCase();
+ const full=raw.toLowerCase();
+
+ function flag(message,value){
+  points+=value;
+  findings.push(message);
+ }
+
+ if(url.protocol==="http:"){
+  flag("The connection does not use HTTPS.",10);
+ }
+
+ if(url.username||url.password){
+  flag("The address contains embedded login information.",25);
+ }
+
+ if(/^\d{1,3}(\.\d{1,3}){3}$/.test(host)){
+  flag("The address uses an IP instead of a normal domain.",20);
+ }
+
+ if(host.startsWith("xn--")||host.includes(".xn--")){
+  flag("The domain contains an internationalized punycode label.",20);
+ }
+
+ if(host.split(".").length>=5){
+  flag("The domain has an unusually large number of subdomains.",15);
+ }
+
+ if(host.length>45){
+  flag("The domain name is unusually long.",10);
+ }
+
+ if(raw.length>180){
+  flag("The full URL is unusually long.",10);
+ }
+
+ if(suspiciousTlds.some(tld=>host.endsWith(tld))){
+  flag("The domain uses a TLD that deserves extra scrutiny.",15);
+ }
+
+ if(shorteners.includes(host)){
+  flag("This is a URL shortening service. The destination is hidden.",15);
+ }
+
+ suspiciousWords.forEach(word=>{
+  if(full.includes(word)){
+   flag("Suspicious wording detected: "+word,12);
+  }
+ });
+
+ brands.forEach(brand=>{
+  if(host.includes(brand)&&!host.endsWith(brand+".com")&&host!==brand+".com"){
+   flag("A known brand name appears in an unexpected domain.",20);
+  }
+ });
+
+ if(url.href.includes("@")){
+  flag("The URL contains an @ character.",10);
+ }
+
+ points=Math.min(points,100);
+
+ let level,css;
+ if(points>=50){
+  level="HIGH RISK INDICATORS";
+  css="red";
+ }else if(points>=25){
+  level="CAUTION";
+  css="orange";
+ }else{
+  level="NO OBVIOUS WARNING SIGNS";
+  css="green";
+ }
+
+ verdict.textContent=level;
+ verdict.className=css;
+ scoreBox.textContent=points+"/100";
+ scoreBox.className="score "+css;
+ domainBox.textContent="DOMAIN: "+host;
+
+ if(findings.length===0){
+  let item=document.createElement("div");
+  item.className="reason";
+  item.textContent="No basic warning indicators were detected.";
+  reasons.appendChild(item);
+ }else{
+  findings.forEach(itemText=>{
+   let item=document.createElement("div");
+   item.className="reason";
+   item.textContent="⚠ "+itemText;
+   reasons.appendChild(item);
+  });
+ }
+
+ notice.textContent=
+ "This is a local heuristic analysis, not a reputation database check. A low score does not prove a URL is safe. Do not enter passwords or personal information on an untrusted site.";
+
+ saveHistory(host,level,points);
 }
-}catch(e){
-result.innerHTML="<h2 class='danger'>INVALID URL</h2>";
+
+function saveHistory(host,level,points){
+ let history=[];
+ try{
+  history=JSON.parse(localStorage.getItem("zainHistory")||"[]");
+  if(!Array.isArray(history))history=[];
+ }catch(e){history=[];}
+
+ history.unshift({
+  host:host,
+  level:level,
+  points:points,
+  time:new Date().toLocaleString()
+ });
+
+ history=history.slice(0,10);
+
+ try{
+  localStorage.setItem("zainHistory",JSON.stringify(history));
+ }catch(e){}
+
+ showHistory();
 }
+
+function showHistory(){
+ let history=[];
+ try{
+  history=JSON.parse(localStorage.getItem("zainHistory")||"[]");
+  if(!Array.isArray(history))history=[];
+ }catch(e){history=[];}
+
+ const box=document.getElementById("history");
+ box.replaceChildren();
+
+ if(history.length===0){
+  box.textContent="No scans yet.";
+  return;
+ }
+
+ history.forEach(entry=>{
+  const item=document.createElement("div");
+  item.className="history-item";
+  item.textContent=entry.host+" | "+entry.level+
+   " | "+entry.points+"/100 | "+entry.time;
+  box.appendChild(item);
+ });
 }
+
+function clearHistory(){
+ try{localStorage.removeItem("zainHistory");}catch(e){}
+ showHistory();
+}
+
+showHistory();
 </script>
 </body>
 </html>
