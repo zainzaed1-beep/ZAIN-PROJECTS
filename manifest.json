@@ -1,4 +1,3 @@
-
 {
   "name": "ZAIN SENTINEL",
   "short_name": "ZAIN",
@@ -10,7 +9,7 @@
   "theme_color": "#080d18",
   "icons": [
     {
-      "src": "zain_classic_blue_Z.jpg",
+      "src": "./zain_classic_blue_Z.jpg",
       "sizes": "any",
       "type": "image/jpeg",
       "purpose": "any"
