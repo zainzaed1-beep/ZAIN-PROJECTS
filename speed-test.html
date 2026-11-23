@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>ZAIN SPEED TEST</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;padding:25px 18px;
+ background:linear-gradient(145deg,#06101f,#102b4d,#06101f);
+ color:#eaf5ff;font-family:Arial,sans-serif;text-align:center
+}
+header{padding:20px}
+h1{color:#65c9ff;letter-spacing:3px}
+.sub{color:#91aac5;font-size:12px;letter-spacing:3px}
+.panel{
+ max-width:500px;margin:35px auto;padding:28px 20px;
+ background:#0b1c32;border:1px solid #24527b;
+ border-radius:22px;box-shadow:0 8px 25px #0005
+}
+.gauge{
+ width:190px;height:190px;margin:20px auto;
+ border:8px solid #24527b;border-top-color:#55caff;
+ border-radius:50%;display:flex;flex-direction:column;
+ align-items:center;justify-content:center
+}
+#speed{font-size:43px;font-weight:bold;color:#65c9ff}
+.unit{color:#91aac5;font-size:13px}
+button{
+ width:100%;padding:16px;border:0;border-radius:12px;
+ background:linear-gradient(90deg,#1679bd,#35baff);
+ color:white;font-size:15px;font-weight:bold;cursor:pointer
+}
+.results{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:25px 0}
+.result{background:#102b49;padding:18px;border-radius:12px}
+.result strong{display:block;color:#65c9ff;font-size:22px;margin-top:8px}
+.result span{font-size:12px;color:#91aac5}
+#status{color:#a9bfd5;font-size:13px;line-height:1.6;margin:15px 0}
+.back{display:block;color:#65c9ff;text-decoration:none;margin-top:25px}
+.note{font-size:11px;color:#7894b1;line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+ <h1>ZAIN SPEED TEST</h1>
+ <div class="sub">NETWORK PERFORMANCE</div>
+</header>
+<div class="panel">
+ <div class="gauge">
+  <div id="speed">--</div>
+  <div class="unit">Mbps</div>
+ </div>
+ <div id="status">READY TO TEST</div>
+ <button id="start">START SPEED TEST</button>
+ <div class="results">
+  <div class="result"><span>DOWNLOAD</span><strong id="down">--</strong><span>Mbps</span></div>
+  <div class="result"><span>UPLOAD</span><strong id="up">--</strong><span>Mbps</span></div>
+  <div class="result"><span>LATENCY</span><strong id="ping">--</strong><span>ms</span></div>
+  <div class="result"><span>JITTER</span><strong id="jitter">--</strong><span>ms</span></div>
+ </div>
+ <p class="note">Measurements use a public test service. Results depend on your connection and device.</p>
+ <a class="back" href="home.html">← BACK TO HOME</a>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const bytes=5*1024*1024;
+const downloadURL='https://speed.cloudflare.com/__down?bytes='+bytes;
+const uploadURL='https://speed.cloudflare.com/__up';
+
+async function measureDownload(){
+ const start=performance.now();
+ const response=await fetch(downloadURL,{cache:'no-store'});
+ if(!response.ok)throw Error('Download test failed');
+ const data=await response.arrayBuffer();
+ const seconds=(performance.now()-start)/1000;
+ return (data.byteLength*8/seconds/1000000);
+}
+async function measureUpload(){
+ const data=new Uint8Array(1024*1024);
+ const start=performance.now();
+ const response=await fetch(uploadURL,{
+  method:'POST',body:data,
+  headers:{'Content-Type':'application/octet-stream'}
+ });
+ if(!response.ok)throw Error('Upload test failed');
+ const seconds=(performance.now()-start)/1000;
+ return data.byteLength*8/seconds/1000000;
+}
+async function measurePing(){
+ const samples=[];
+ for(let i=0;i<4;i++){
+  const start=performance.now();
+  await fetch('https://speed.cloudflare.com/__down?bytes=0&nocache='+Math.random(),{cache:'no-store'});
+  samples.push(performance.now()-start);
+ }
+ return {
+  avg:samples.reduce((a,b)=>a+b,0)/samples.length,
+  jitter:Math.max(...samples)-Math.min(...samples)
+ };
+}
+$('start').onclick=async()=>{
+ const btn=$('start');
+ btn.disabled=true;
+ btn.textContent='TEST RUNNING...';
+ $('status').textContent='Measuring connection...';
+ ['speed','down','up','ping','jitter'].forEach(id=>$(id).textContent='...');
+ try{
+  const p=await measurePing();
+  $('ping').textContent=p.avg.toFixed(0);
+  $('jitter').textContent=p.jitter.toFixed(0);
+  $('status').textContent='Testing download...';
+  const d=await measureDownload();
+  $('down').textContent=d.toFixed(2);
+  $('speed').textContent=d.toFixed(1);
+  $('status').textContent='Testing upload...';
+  const u=await measureUpload();
+  $('up').textContent=u.toFixed(2);
+  $('status').textContent='TEST COMPLETED';
+ }catch(e){
+  $('status').textContent='Test failed. Check your connection and try again.';
+  $('speed').textContent='--';
+ }finally{
+  btn.disabled=false;
+  btn.textContent='TEST AGAIN';
+ }
+};
+</script>
+</body>
+</html>
