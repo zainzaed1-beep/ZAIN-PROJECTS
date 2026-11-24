@@ -1,449 +1,590 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b16">
+<meta name="theme-color" content="#071426">
 <title>ZAIN SENTINEL X | DASHBOARD</title>
 
 <style>
-*{box-sizing:border-box}
-
 :root{
- --bg:#090b16;
- --sidebar:#070d1d;
- --panel:#151c2c;
- --border:#293e5b;
- --blue:#398cff;
- --cyan:#37c8df;
- --purple:#9174ff;
- --green:#39d6ac;
- --text:#e8edf8;
- --muted:#8996ad;
+ --bg:#07111f;
+ --sidebar:#09182a;
+ --panel:#0d1d31;
+ --border:#1d3b59;
+ --blue:#258cff;
+ --cyan:#45c9f5;
+ --green:#28d6a0;
+ --orange:#ffbd59;
+ --text:#edf6ff;
+ --muted:#829bb6;
 }
+*{box-sizing:border-box}
 
 body{
  margin:0;
  min-height:100vh;
  background:var(--bg);
  color:var(--text);
- font-family:Arial,sans-serif;
+ font-family:Arial,Helvetica,sans-serif;
 }
 
-.app{
- display:flex;
- min-height:100vh;
-}
+a{color:inherit;text-decoration:none}
+.layout{display:flex;min-height:100vh}
 
 /* SIDEBAR */
-
 .sidebar{
- width:235px;
- min-width:235px;
- background:var(--sidebar);
- border-right:1px solid #18243b;
+ width:240px;
+ position:fixed;
+ inset:0 auto 0 0;
+ background:linear-gradient(180deg,#0a1c31,#071321);
+ border-right:1px solid var(--border);
+ padding:25px 16px;
  display:flex;
  flex-direction:column;
- padding:20px 13px;
+ z-index:5;
 }
 
 .brand{
  display:flex;
  align-items:center;
- gap:12px;
- padding:5px 7px 30px;
- border-bottom:1px solid #18243b;
+ gap:11px;
+ padding:5px 9px 35px;
+ font-size:21px;
+ font-weight:900;
+ letter-spacing:3px;
 }
 
-.brand-icon{
- width:38px;
- height:38px;
+.brand-symbol{
+ width:39px;
+ height:39px;
+ border-radius:9px;
  display:grid;
  place-items:center;
- border-radius:10px;
- background:#142b4c;
- color:#55bdff;
- font-size:22px;
+ color:white;
+ background:#123c68;
+ border:1px solid #2867a1;
+ font-size:24px;
 }
 
-.brand-name{
- font-size:18px;
- font-weight:bold;
-}
+.brand span:last-child{color:var(--cyan)}
 
-.brand-name span{
- color:#55bdff;
-}
-
-.menu-title{
- color:#72829c;
+.menu-label{
  font-size:10px;
  letter-spacing:2px;
- margin:27px 10px 12px;
+ color:#6e89a5;
+ padding:0 12px;
+ margin-bottom:12px;
 }
 
-.nav{
- display:block;
- text-decoration:none;
- color:#a9b6ca;
- padding:13px 12px;
- border-radius:7px;
- margin:4px 0;
- font-size:13px;
+.nav a{
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:14px 13px;
+ margin-bottom:7px;
  border:1px solid transparent;
+ border-radius:7px;
+ color:#91a9c2;
+ font-size:13px;
  transition:.2s;
 }
 
-.nav:hover,.nav.active{
- color:#75bfff;
- background:#102442;
- border-color:#244d78;
+.nav a:hover{
+ background:#10243b;
+ color:white;
 }
 
-.nav span{
- display:inline-block;
- width:28px;
- font-size:16px;
+.nav a.active{
+ background:#102b49;
+ color:#65baff;
+ border-color:#24517d;
+}
+
+.nav-icon{
+ width:20px;
+ text-align:center;
+ font-size:18px;
 }
 
 /* MAIN */
-
-.content{
- flex:1;
- min-width:0;
- padding:30px 30px;
+.main{
+ margin-left:240px;
+ width:calc(100% - 240px);
+ max-width:1600px;
+ padding:28px 35px 45px;
 }
 
 .topbar{
  display:flex;
- justify-content:space-between;
  align-items:center;
- margin-bottom:32px;
+ justify-content:space-between;
+ gap:12px;
+ padding-bottom:19px;
+ border-bottom:1px solid var(--border);
 }
 
-.page-title{
- font-size:22px;
- font-weight:bold;
-}
-
-.page-subtitle{
+.top-label{
+ font-size:10px;
+ letter-spacing:2px;
  color:var(--muted);
- font-size:12px;
- margin-top:8px;
 }
 
-.settings{
- border:1px solid #2b3b57;
- color:#b5c5dc;
- background:#111827;
- padding:10px 15px;
- border-radius:7px;
- font-size:12px;
+.status{
+ padding:9px 13px;
+ border:1px solid #1c5b50;
+ background:#0b2826;
+ color:var(--green);
+ border-radius:5px;
+ font-size:10px;
+ letter-spacing:1px;
+ white-space:nowrap;
 }
 
-/* DASHBOARD */
+.heading{margin:30px 0 25px}
 
-.dashboard{
+.eyebrow{
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:3px;
+ font-weight:bold;
+ margin-bottom:10px;
+}
+
+.heading h1{
+ font-size:clamp(25px,4vw,34px);
+ margin:0 0 9px;
+ letter-spacing:.5px;
+}
+
+.heading p{
+ margin:0;
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.7;
+}
+
+/* SECTION */
+.section-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:15px;
+}
+
+.section-title{
+ margin:0;
+ font-size:11px;
+ letter-spacing:1.7px;
+}
+
+.tag{
+ color:var(--cyan);
+ font-size:9px;
+ letter-spacing:1px;
+ padding:6px 9px;
+ border:1px solid #24527a;
+ border-radius:4px;
+}
+
+/* MODULE CARDS */
+.modules{
  display:grid;
  grid-template-columns:repeat(2,minmax(0,1fr));
- gap:18px;
- margin-top:65px;
+ gap:16px;
 }
 
-.panel{
- min-height:125px;
- background:var(--panel);
+.module{
+ position:relative;
+ overflow:hidden;
+ display:block;
+ min-height:150px;
+ padding:22px;
+ background:linear-gradient(145deg,#10243a,#0b192a);
  border:1px solid var(--border);
  border-radius:10px;
- padding:20px;
- display:flex;
- flex-direction:column;
- justify-content:center;
+ transition:.22s;
+ box-shadow:0 12px 35px #00000018;
 }
 
-.panel-title{
- text-align:center;
+.module:hover{
+ transform:translateY(-3px);
+ border-color:#3688c9;
+ background:linear-gradient(145deg,#142e4b,#0c2036);
+}
+
+.module:active{transform:scale(.98)}
+
+.module-icon{
+ width:43px;
+ height:43px;
+ display:grid;
+ place-items:center;
+ border-radius:9px;
+ background:#12375c;
+ border:1px solid #24547e;
+ color:var(--cyan);
+ font-size:22px;
+ margin-bottom:18px;
+}
+
+.module h3{
+ margin:0 0 8px;
  font-size:13px;
- font-weight:bold;
- color:#dce5f4;
+ letter-spacing:.5px;
 }
 
-.panel-icon{
- margin-right:7px;
- color:var(--purple);
- font-size:17px;
+.module p{
+ margin:0;
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.7;
 }
 
-/* QUICK ACTIONS */
-
-.quick{
- grid-column:1/-1;
- min-height:155px;
- text-align:center;
- padding:22px;
-}
-
-.quick-title{
- font-size:13px;
- font-weight:bold;
- margin-bottom:25px;
-}
-
-.quick-title span{
- color:var(--purple);
- margin-right:7px;
+.module-arrow{
+ position:absolute;
+ right:20px;
+ top:23px;
+ color:#6289ae;
  font-size:18px;
 }
 
+.module-status{
+ display:inline-block;
+ margin-top:15px;
+ color:var(--green);
+ font-size:9px;
+ letter-spacing:1px;
+}
+
+/* QUICK ACTIONS */
+.quick-panel{
+ margin-top:20px;
+ background:linear-gradient(145deg,#10243a,#0b192a);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:22px;
+}
+
 .actions{
- display:flex;
- justify-content:center;
- gap:12px;
- flex-wrap:wrap;
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:11px;
 }
 
 .action{
- min-width:125px;
- min-height:75px;
- padding:13px 15px;
- border-radius:8px;
- background:#0d1424;
- border:1px solid #39345f;
- text-decoration:none;
- color:#dce6f7;
  display:flex;
- flex-direction:column;
  align-items:center;
  justify-content:center;
- gap:9px;
+ flex-direction:column;
+ gap:10px;
+ min-height:95px;
+ padding:13px 8px;
+ text-align:center;
+ background:#0a192a;
+ border:1px solid #1c3854;
+ border-radius:7px;
  transition:.2s;
 }
 
 .action:hover{
- background:#19243a;
- border-color:#7770bc;
+ background:#122a43;
+ border-color:#3688c9;
 }
 
 .action-icon{
- color:var(--green);
- font-size:21px;
+ color:var(--cyan);
+ font-size:22px;
 }
 
 .action-name{
- font-size:11px;
+ font-size:10px;
  font-weight:bold;
+ letter-spacing:.5px;
+}
+
+/* INFO */
+.info-panel{
+ margin-top:20px;
+ background:linear-gradient(145deg,#10243a,#0b192a);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:22px;
+}
+
+.info-row{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:14px 0;
+ border-bottom:1px solid #1a334d;
+ font-size:11px;
+}
+
+.info-row:last-child{border-bottom:0}
+.info-row span{color:var(--muted)}
+.info-row strong{color:var(--green);font-size:10px}
+
+.footer{
+ text-align:center;
+ color:#667f99;
+ font-size:9px;
+ letter-spacing:1px;
+ line-height:2;
+ padding:25px 10px 5px;
 }
 
 /* RESPONSIVE */
-
-@media(max-width:700px){
-
+@media(max-width:950px){
  .sidebar{
-  width:75px;
-  min-width:75px;
-  padding:15px 8px;
+  width:76px;
+  padding:20px 8px;
  }
-
  .brand{
   justify-content:center;
-  padding:5px 0 22px;
+  padding:5px 0 35px;
  }
-
- .brand-icon{
-  width:42px;
-  height:42px;
- }
-
- .brand-name,
- .menu-title,
- .nav-text{
-  display:none;
- }
-
- .nav{
-  text-align:center;
+ .brand .brand-name,
+ .menu-label,
+ .nav-text{display:none}
+ .nav a{
+  justify-content:center;
   padding:14px 5px;
  }
-
- .nav span{
-  width:auto;
-  font-size:20px;
- }
-
- .content{
-  padding:23px 15px;
- }
-
- .page-title{
-  font-size:18px;
- }
-
- .dashboard{
-  gap:12px;
-  margin-top:40px;
- }
-
- .panel{
-  min-height:115px;
-  padding:12px 6px;
- }
-
- .panel-title{
-  font-size:11px;
- }
-
- .actions{
-  gap:8px;
- }
-
- .action{
-  min-width:105px;
-  flex:1 1 40%;
- }
-
- .quick{
-  padding:18px 10px;
+ .main{
+  margin-left:76px;
+  width:calc(100% - 76px);
+  padding:23px 20px;
  }
 }
 
-@media(max-width:380px){
- .content{
-  padding:18px 10px;
+@media(max-width:520px){
+ .main{padding:16px 12px 30px}
+ .top-label{font-size:9px;letter-spacing:1px}
+ .status{font-size:9px;padding:8px}
+ .heading{margin:23px 0 20px}
+ .heading h1{font-size:25px}
+ .modules{gap:10px}
+ .module{padding:15px;min-height:155px}
+ .module-icon{
+  width:36px;
+  height:36px;
+  font-size:19px;
+  margin-bottom:14px;
  }
+ .module h3{font-size:11px}
+ .module p{font-size:10px}
+ .module-arrow{right:13px;top:15px}
+ .quick-panel,.info-panel{padding:16px}
+ .actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 
- .panel{
-  min-height:105px;
- }
-
- .panel-title{
-  font-size:10px;
- }
+@media(max-width:360px){
+ .main{padding:15px 9px}
+ .module{padding:12px}
+ .module h3{font-size:10px}
+ .module p{font-size:9px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="layout">
 
 <!-- SIDEBAR -->
-
 <aside class="sidebar">
 
  <div class="brand">
-  <div class="brand-icon">ϟ</div>
-  <div class="brand-name">ZAIN<span> X</span></div>
+  <div class="brand-symbol">ϟ</div>
+  <span class="brand-name">ZAIN</span>
+  <span>X</span>
  </div>
 
- <div class="menu-title">MAIN MENU</div>
+ <div class="menu-label">MAIN MENU</div>
 
- <a class="nav active" href="home.html">
-  <span>⌂</span><span class="nav-text">Overview</span>
- </a>
+ <nav class="nav">
 
- <a class="nav" href="scanner.html">
-  <span>▦</span><span class="nav-text">URL Scanner</span>
- </a>
+  <a class="active" href="home.html">
+   <span class="nav-icon">⌂</span>
+   <span class="nav-text">Overview</span>
+  </a>
 
- <a class="nav" href="speed-test.html">
-  <span>⌁</span><span class="nav-text">Speed Test</span>
- </a>
+  <a href="scanner.html">
+   <span class="nav-icon">⌕</span>
+   <span class="nav-text">URL Scanner</span>
+  </a>
 
- <div class="menu-title">SYSTEM</div>
+  <a href="speed-test.html">
+   <span class="nav-icon">◉</span>
+   <span class="nav-text">Speed Test</span>
+  </a>
 
- <a class="nav" href="home.html">
-  <span>⚙</span><span class="nav-text">Dashboard</span>
- </a>
+  <a href="#system">
+   <span class="nav-icon">▦</span>
+   <span class="nav-text">System Modules</span>
+  </a>
+
+ </nav>
 
 </aside>
 
-<!-- MAIN CONTENT -->
-
-<main class="content">
+<!-- MAIN -->
+<main class="main">
 
  <div class="topbar">
-  <div>
-   <div class="page-title">Security Dashboard</div>
-   <div class="page-subtitle">
-    ZAIN SENTINEL X overview
-   </div>
+  <div class="top-label">
+   ZAIN SENTINEL X / SECURITY CONTROL CENTER
   </div>
-
-  <div class="settings">⚙ Settings</div>
+  <div class="status">● SYSTEM READY</div>
  </div>
 
- <!-- DASHBOARD CARDS -->
+ <!-- HEADING -->
+ <section class="heading">
+  <div class="eyebrow">CENTRAL CONTROL INTERFACE</div>
+  <h1>Security Dashboard</h1>
+  <p>
+   Welcome to ZAIN SENTINEL X.
+   Monitor your security tools and network performance.
+  </p>
+ </section>
 
- <section class="dashboard">
+ <!-- MODULES -->
+ <section id="system">
 
-  <div class="panel">
-   <div class="panel-title">
-    <span class="panel-icon">▥</span>
-    Security Scanner
-   </div>
+  <div class="section-head">
+   <h2 class="section-title">SYSTEM MODULES</h2>
+   <span class="tag">03 MODULES</span>
   </div>
 
-  <div class="panel">
-   <div class="panel-title">
-    <span class="panel-icon">△</span>
-    URL Protection
-   </div>
-  </div>
+  <div class="modules">
 
-  <div class="panel">
-   <div class="panel-title">
-    <span class="panel-icon">⌁</span>
-    Network Monitor
-   </div>
-  </div>
+   <a class="module" href="scanner.html">
+    <span class="module-arrow">↗</span>
+    <div class="module-icon">⌕</div>
+    <h3>URL SECURITY SCANNER</h3>
+    <p>
+     Analyze website addresses and inspect common suspicious URL patterns.
+    </p>
+    <span class="module-status">● MODULE AVAILABLE</span>
+   </a>
 
-  <div class="panel">
-   <div class="panel-title">
-    <span class="panel-icon">▦</span>
-    System Modules
-   </div>
-  </div>
+   <a class="module" href="scanner.html">
+    <span class="module-arrow">↗</span>
+    <div class="module-icon">◇</div>
+    <h3>URL PROTECTION</h3>
+    <p>
+     Check suspicious links before opening unfamiliar websites.
+    </p>
+    <span class="module-status">● MODULE AVAILABLE</span>
+   </a>
 
-  <!-- QUICK ACTIONS -->
+   <a class="module" href="speed-test.html">
+    <span class="module-arrow">↗</span>
+    <div class="module-icon">◉</div>
+    <h3>NETWORK MONITOR</h3>
+    <p>
+     Measure download, upload, ping and network performance.
+    </p>
+    <span class="module-status">● MODULE AVAILABLE</span>
+   </a>
 
-  <div class="panel quick">
+   <a class="module" href="speed-test.html">
+    <span class="module-arrow">↗</span>
+    <div class="module-icon">▦</div>
+    <h3>NETWORK ANALYTICS</h3>
+    <p>
+     Open the network testing center and review connection measurements.
+    </p>
+    <span class="module-status">● MODULE AVAILABLE</span>
+   </a>
 
-   <div class="quick-title">
-    <span>ϟ</span>
-    Quick Actions
-   </div>
-
-   <div class="actions">
-
-    <a class="action" href="scanner.html">
-     <span class="action-icon">△</span>
-     <span class="action-name">URL Scanner</span>
-    </a>
-
-    <a class="action" href="speed-test.html">
-     <span class="action-icon">▣</span>
-     <span class="action-name">Speed Test</span>
-    </a>
-
-    <a class="action" href="scanner.html">
-     <span class="action-icon">⌕</span>
-     <span class="action-name">Scan URL</span>
-    </a>
-
-    <a class="action" href="home.html">
-     <span class="action-icon">▤</span>
-     <span class="action-name">Overview</span>
-    </a>
-
-   </div>
   </div>
 
  </section>
 
-</main>
+ <!-- QUICK ACTIONS -->
+ <section class="quick-panel">
 
+  <div class="section-head">
+   <h2 class="section-title">QUICK ACTIONS</h2>
+   <span class="tag">SHORTCUTS</span>
+  </div>
+
+  <div class="actions">
+
+   <a class="action" href="scanner.html">
+    <span class="action-icon">⌕</span>
+    <span class="action-name">SCAN URL</span>
+   </a>
+
+   <a class="action" href="speed-test.html">
+    <span class="action-icon">◉</span>
+    <span class="action-name">SPEED TEST</span>
+   </a>
+
+   <a class="action" href="#system">
+    <span class="action-icon">▦</span>
+    <span class="action-name">MODULES</span>
+   </a>
+
+  </div>
+
+ </section>
+
+ <!-- SYSTEM INFORMATION -->
+ <section class="info-panel">
+
+  <div class="section-head">
+   <h2 class="section-title">SYSTEM INFORMATION</h2>
+   <span class="tag">DEVICE</span>
+  </div>
+
+  <div class="info-row">
+   <span>Application</span>
+   <strong>ZAIN SENTINEL X</strong>
+  </div>
+
+  <div class="info-row">
+   <span>Interface Status</span>
+   <strong>READY</strong>
+  </div>
+
+  <div class="info-row">
+   <span>Available Modules</span>
+   <strong>03 ACTIVE LINKS</strong>
+  </div>
+
+  <div class="info-row">
+   <span>Platform</span>
+   <strong id="platform">DETECTING...</strong>
+  </div>
+
+ </section>
+
+ <footer class="footer">
+  ZAIN PROJECT © 2026<br>
+  CYBER SECURITY / NETWORK ANALYTICS
+ </footer>
+
+</main>
 </div>
+
+<script>
+const platform=document.getElementById("platform");
+
+const ua=navigator.userAgent;
+
+if(/Android/i.test(ua)){
+ platform.textContent="ANDROID";
+}else if(/iPhone|iPad/i.test(ua)){
+ platform.textContent="IOS";
+}else{
+ platform.textContent="DESKTOP / WEB";
+}
+</script>
 
 </body>
 </html>
