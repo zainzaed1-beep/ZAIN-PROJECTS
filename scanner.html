@@ -1,208 +1,249 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090b16">
+<meta name="theme-color" content="#07111f">
 <title>ZAIN SENTINEL X | URL SCANNER</title>
 
 <style>
 *{box-sizing:border-box}
 :root{
- --bg:#090b16;
- --sidebar:#070d1d;
- --panel:#151c2c;
- --border:#293e5b;
- --blue:#398cff;
- --cyan:#37c8df;
- --purple:#9174ff;
- --green:#39d6ac;
- --text:#e8edf8;
- --muted:#8996ad;
+ --bg:#07111f;
+ --sidebar:#09182a;
+ --panel:#0d1d31;
+ --border:#1d3b59;
+ --blue:#258cff;
+ --cyan:#45c9f5;
+ --green:#28d6a0;
  --orange:#ffbd59;
  --red:#ff5368;
+ --text:#edf6ff;
+ --muted:#829bb6;
 }
 body{
  margin:0;min-height:100vh;
  background:var(--bg);color:var(--text);
- font-family:Arial,sans-serif;
+ font-family:Arial,Helvetica,sans-serif;
 }
 button,input{font:inherit}
 button{cursor:pointer}
+a{color:inherit;text-decoration:none}
 .app{display:flex;min-height:100vh}
 
 /* SIDEBAR */
 .sidebar{
- width:235px;min-width:235px;
- background:var(--sidebar);
- border-right:1px solid #18243b;
+ width:240px;min-width:240px;
+ position:fixed;inset:0 auto 0 0;
+ background:linear-gradient(180deg,#0a1c31,#071321);
+ border-right:1px solid var(--border);
  display:flex;flex-direction:column;
- padding:20px 13px;
+ padding:25px 16px;z-index:5;
 }
 .brand{
- display:flex;align-items:center;gap:12px;
- padding:5px 7px 30px;
- border-bottom:1px solid #18243b;
+ display:flex;align-items:center;gap:11px;
+ padding:5px 9px 35px;
+ font-size:21px;font-weight:900;letter-spacing:3px;
 }
 .brand-icon{
- width:38px;height:38px;display:grid;
- place-items:center;border-radius:10px;
- background:#142b4c;color:#55bdff;font-size:22px;
+ width:39px;height:39px;
+ display:grid;place-items:center;
+ border-radius:9px;background:#123c68;
+ border:1px solid #2867a1;
+ color:white;font-size:24px;
 }
-.brand-name{font-size:18px;font-weight:bold}
-.brand-name span{color:#55bdff}
+.brand-name{color:var(--text)}
+.brand-name span{color:var(--cyan)}
 .menu-title{
- color:#72829c;font-size:10px;
- letter-spacing:2px;margin:27px 10px 12px;
+ color:#6e89a5;font-size:10px;
+ letter-spacing:2px;padding:0 12px;
+ margin:8px 0 12px;
 }
 .nav{
- display:block;text-decoration:none;color:#a9b6ca;
- padding:13px 12px;border-radius:7px;
- margin:4px 0;font-size:13px;
- border:1px solid transparent;transition:.2s;
+ display:flex;align-items:center;gap:13px;
+ padding:14px 13px;margin-bottom:7px;
+ border:1px solid transparent;border-radius:7px;
+ color:#91a9c2;font-size:13px;transition:.2s;
 }
-.nav:hover,.nav.active{
- color:#75bfff;background:#102442;border-color:#244d78;
+.nav:hover{background:#10243b;color:white}
+.nav.active{
+ background:#102b49;color:#65baff;
+ border-color:#24517d;
 }
-.nav span{display:inline-block;width:28px;font-size:16px}
+.nav-icon{width:20px;text-align:center;font-size:18px}
 
 /* MAIN */
-.content{flex:1;min-width:0;padding:30px}
-.topbar{
- display:flex;justify-content:space-between;
- align-items:center;margin-bottom:25px;gap:12px;
+.content{
+ margin-left:240px;width:calc(100% - 240px);
+ max-width:1600px;padding:28px 35px 40px;
+ min-width:0;
 }
-.page-title{font-size:22px;font-weight:bold}
-.page-subtitle{color:var(--muted);font-size:12px;margin-top:8px}
-.settings{
- border:1px solid #2b3b57;color:#b5c5dc;
- background:#111827;padding:10px 15px;
- border-radius:7px;font-size:12px;
+.topbar{
+ display:flex;align-items:center;
+ justify-content:space-between;gap:12px;
+ padding-bottom:19px;border-bottom:1px solid var(--border);
+}
+.top-label{
+ font-size:10px;letter-spacing:2px;color:var(--muted);
+}
+.status{
+ padding:9px 13px;border:1px solid #1c5b50;
+ background:#0b2826;color:var(--green);
+ border-radius:5px;font-size:10px;white-space:nowrap;
+}
+.heading{margin:30px 0 25px}
+.eyebrow{
+ color:var(--cyan);font-size:10px;
+ letter-spacing:3px;font-weight:bold;margin-bottom:10px;
+}
+.heading h1{
+ font-size:clamp(25px,4vw,34px);
+ margin:0 0 9px;letter-spacing:.5px;
+}
+.heading p{
+ color:var(--muted);font-size:13px;
+ line-height:1.7;margin:0;
 }
 
 /* PANELS */
 .panel{
- background:var(--panel);
+ background:linear-gradient(145deg,#10243a,#0b192a);
  border:1px solid var(--border);
- border-radius:10px;padding:20px;margin-bottom:17px;
+ border-radius:10px;padding:22px;margin-bottom:18px;
 }
 .panel-head{
  display:flex;justify-content:space-between;
- align-items:center;gap:12px;margin-bottom:20px;
+ align-items:center;gap:12px;flex-wrap:wrap;
+ margin-bottom:20px;
 }
-.panel-title{font-size:13px;font-weight:bold}
-.panel-icon{margin-right:7px;color:var(--purple);font-size:17px}
+.panel-title{font-size:12px;font-weight:bold;letter-spacing:1px}
+.panel-icon{color:var(--cyan);margin-right:8px;font-size:16px}
 .tag{
- color:#75bfff;background:#102442;
- border:1px solid #244d78;
- border-radius:5px;padding:6px 9px;
- font-size:9px;letter-spacing:1px;
+ color:var(--cyan);font-size:9px;letter-spacing:1px;
+ padding:6px 9px;border:1px solid #24527a;
+ border-radius:4px;
 }
 
-/* SCANNER */
+/* STATS */
+.stats{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:14px;margin-bottom:18px;
+}
+.stat{
+ background:linear-gradient(145deg,#10243a,#0b192a);
+ border:1px solid var(--border);
+ border-radius:10px;padding:19px;
+ min-width:0;
+}
+.stat-label{
+ color:var(--muted);font-size:10px;letter-spacing:1.5px;
+}
+.stat-value{
+ font-size:26px;font-weight:bold;margin-top:11px;
+ overflow-wrap:anywhere;
+}
+.stat-note{color:#829bb6;font-size:10px;margin-top:6px}
+
+/* INPUT */
 .label{
- display:block;color:#a9b6ca;
- font-size:11px;letter-spacing:1px;
- margin-bottom:10px;font-weight:bold;
+ display:block;color:#b1c6dc;font-size:10px;
+ letter-spacing:1px;margin-bottom:11px;font-weight:bold;
 }
 .input-wrap{display:flex;gap:10px}
 input{
- flex:1;min-width:0;
- background:#0d1424;border:1px solid #293e5b;
- border-radius:7px;padding:15px;
- color:white;outline:none;font-size:13px;
+ flex:1;min-width:0;background:#081728;
+ border:1px solid var(--border);border-radius:7px;
+ padding:15px;color:white;outline:none;font-size:13px;
 }
-input:focus{border-color:var(--blue)}
+input:focus{border-color:var(--blue);box-shadow:0 0 0 2px #258cff20}
 .primary{
- background:#1b5794;color:white;
- border:1px solid #398cff;border-radius:7px;
- padding:0 22px;font-size:11px;
- font-weight:bold;letter-spacing:1px;
+ background:#15518a;color:white;
+ border:1px solid var(--blue);border-radius:7px;
+ padding:0 23px;font-size:10px;
+ font-weight:bold;letter-spacing:1px;transition:.2s;
 }
-.primary:hover{background:#2672ba}
+.primary:hover{background:#216eb3}
+.primary:disabled{opacity:.6;cursor:wait}
 .hint{
- color:#8996ad;font-size:10px;
- line-height:1.7;margin:12px 0 0;
+ color:var(--muted);font-size:10px;
+ line-height:1.8;margin:12px 0 0;
 }
+
+/* RESULT */
 .result{
  display:none;margin-top:20px;
- background:#0d1424;border:1px solid #293e5b;
- border-radius:8px;padding:18px;
+ background:#081728;border:1px solid var(--border);
+ border-radius:8px;padding:19px;
 }
 .result-top{
  display:flex;justify-content:space-between;
  align-items:center;gap:12px;flex-wrap:wrap;
 }
-.verdict{font-size:14px;font-weight:bold;letter-spacing:1px}
-.score{font-size:27px;font-weight:bold}
+.verdict{font-size:13px;font-weight:bold;letter-spacing:1px}
+.score{font-size:28px;font-weight:bold}
 .green{color:var(--green)}
 .orange{color:var(--orange)}
 .red{color:var(--red)}
 .meter{
- height:8px;background:#26334a;
- border-radius:20px;overflow:hidden;margin:14px 0;
+ height:8px;background:#20354b;
+ border-radius:20px;overflow:hidden;margin:15px 0;
 }
 .meter-fill{
- height:100%;width:0;border-radius:20px;transition:width .4s;
+ height:100%;width:0;border-radius:20px;
+ transition:width .5s ease;
 }
 .domain{
- font-size:11px;color:#a9bfd5;
- overflow-wrap:anywhere;margin-bottom:12px;
+ font-size:11px;color:#b6cce0;
+ overflow-wrap:anywhere;margin-bottom:13px;
 }
 .reason{
- padding:11px;margin-top:8px;
- border-radius:6px;background:#151c2c;
- border:1px solid #293e5b;
- color:#c9dced;font-size:11px;line-height:1.6;
+ padding:12px;margin-top:8px;border-radius:6px;
+ background:#10243a;border:1px solid #1d3b59;
+ color:#c9dced;font-size:11px;line-height:1.7;
 }
-.notice{font-size:10px;color:#8996ad;line-height:1.7;margin-top:14px}
-.secondary{
- background:#0d1424;color:#b5c5dc;
- border:1px solid #39345f;border-radius:7px;
- padding:10px 13px;font-size:10px;font-weight:bold;
+.notice{
+ font-size:10px;color:var(--muted);
+ line-height:1.8;margin-top:14px;
 }
-.secondary:hover{background:#19243a;border-color:#7770bc}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.secondary{
+ background:#0a192a;color:#b5cce0;
+ border:1px solid #31516f;border-radius:7px;
+ padding:11px 14px;font-size:10px;font-weight:bold;
+ transition:.2s;
+}
+.secondary:hover{background:#142d48;border-color:var(--cyan)}
 
-/* STAT CARDS */
-.stats{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
- gap:14px;margin-bottom:17px;
-}
-.stat{
- background:var(--panel);border:1px solid var(--border);
- border-radius:10px;padding:17px;
-}
-.stat-label{
- color:#8996ad;font-size:10px;letter-spacing:1.5px;
-}
-.stat-value{font-size:25px;font-weight:bold;margin-top:9px}
-.stat-note{color:#8291a9;font-size:10px;margin-top:5px}
-
-/* MODULES */
+/* ANALYSIS MODULES */
 .modules{
- display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:12px;
 }
 .module{
- background:#0d1424;border:1px solid #293e5b;
- border-radius:8px;padding:16px;
+ background:#0a192a;border:1px solid #1d3b59;
+ border-radius:8px;padding:17px;min-width:0;
+ transition:.2s;
 }
-.module-icon{font-size:21px;color:var(--purple);margin-bottom:10px}
-.module strong{font-size:11px}
-.module p{font-size:10px;color:#8996ad;line-height:1.7;margin:7px 0 0}
+.module:hover{border-color:#3688c9;transform:translateY(-2px)}
+.module-icon{font-size:21px;color:var(--cyan);margin-bottom:12px}
+.module strong{font-size:10px;letter-spacing:.5px}
+.module p{
+ font-size:10px;color:var(--muted);
+ line-height:1.8;margin:8px 0 0;
+}
 
 /* HISTORY */
 .history{display:grid;gap:9px}
 .history-item{
  display:flex;justify-content:space-between;
- align-items:center;gap:12px;
- padding:12px;background:#0d1424;
- border:1px solid #293e5b;border-radius:7px;
- font-size:11px;
+ align-items:center;gap:12px;padding:13px;
+ background:#0a192a;border:1px solid #1d3b59;
+ border-radius:7px;font-size:11px;
 }
 .history-main{min-width:0;overflow-wrap:anywhere}
-.history-host{font-weight:bold;color:#dce6f7;margin-bottom:5px}
-.history-meta{font-size:10px;color:#8996ad;line-height:1.6}
+.history-host{font-weight:bold;color:#e0edfa;margin-bottom:5px}
+.history-meta{font-size:10px;color:var(--muted);line-height:1.7}
 .pill{
  font-size:9px;font-weight:bold;padding:7px 9px;
  border-radius:5px;white-space:nowrap;
@@ -210,37 +251,42 @@ input:focus{border-color:var(--blue)}
 .pill.green{background:#10342e}
 .pill.orange{background:#392a12}
 .pill.red{background:#3b1720}
-.empty{font-size:11px;color:#8996ad;padding:12px 0}
+.empty{font-size:11px;color:var(--muted);padding:12px 0}
 .footer{
- text-align:center;color:#66748b;
+ text-align:center;color:#667f99;
  font-size:9px;letter-spacing:1px;
- line-height:2;padding:20px;
+ line-height:2;padding:22px 10px 5px;
 }
 
-/* MOBILE */
-@media(max-width:700px){
- .sidebar{width:75px;min-width:75px;padding:15px 8px}
- .brand{justify-content:center;padding:5px 0 22px}
- .brand-icon{width:42px;height:42px}
+/* RESPONSIVE */
+@media(max-width:950px){
+ .sidebar{width:76px;min-width:76px;padding:20px 8px}
+ .brand{justify-content:center;padding:5px 0 35px}
  .brand-name,.menu-title,.nav-text{display:none}
- .nav{text-align:center;padding:14px 5px}
- .nav span{width:auto;font-size:20px}
- .content{padding:23px 15px}
- .page-title{font-size:18px}
- .panel{padding:15px}
- .stats{gap:8px}
- .stat{padding:12px 9px}
- .stat-value{font-size:20px}
+ .nav{justify-content:center;padding:14px 5px}
+ .content{margin-left:76px;width:calc(100% - 76px);padding:23px 20px}
+}
+@media(max-width:650px){
+ .content{padding:19px 13px 30px}
+ .heading{margin:23px 0 20px}
+ .heading h1{font-size:25px}
+ .panel{padding:16px}
+ .stats{gap:9px}
+ .stat{padding:13px 10px}
+ .stat-value{font-size:21px}
  .stat-label{font-size:9px}
  .modules{grid-template-columns:1fr}
  .input-wrap{flex-direction:column}
  .primary{padding:15px}
- .topbar{align-items:flex-start}
+ .top-label{font-size:9px;letter-spacing:1px}
+ .status{font-size:9px;padding:8px}
 }
-@media(max-width:380px){
- .content{padding:18px 10px}
+@media(max-width:390px){
+ .content{padding:16px 10px}
  .stats{grid-template-columns:1fr}
+ .stat{padding:14px}
  .panel{padding:13px}
+ .history-item{align-items:flex-start}
 }
 </style>
 </head>
@@ -251,50 +297,61 @@ input:focus{border-color:var(--blue)}
 <aside class="sidebar">
  <div class="brand">
   <div class="brand-icon">ϟ</div>
-  <div class="brand-name">ZAIN<span> X</span></div>
+  <div class="brand-name">ZAIN <span>X</span></div>
  </div>
 
  <div class="menu-title">MAIN MENU</div>
 
  <a class="nav" href="home.html">
-  <span>⌂</span><span class="nav-text">Overview</span>
+  <span class="nav-icon">⌂</span>
+  <span class="nav-text">Overview</span>
  </a>
 
  <a class="nav active" href="scanner.html">
-  <span>▦</span><span class="nav-text">URL Scanner</span>
+  <span class="nav-icon">⌕</span>
+  <span class="nav-text">URL Scanner</span>
  </a>
 
  <a class="nav" href="speed-test.html">
-  <span>⌁</span><span class="nav-text">Speed Test</span>
+  <span class="nav-icon">◉</span>
+  <span class="nav-text">Speed Test</span>
  </a>
 
  <div class="menu-title">SYSTEM</div>
- <a class="nav" href="home.html">
-  <span>⚙</span><span class="nav-text">Dashboard</span>
+
+ <a class="nav" href="home.html#system">
+  <span class="nav-icon">▦</span>
+  <span class="nav-text">System Modules</span>
  </a>
 </aside>
 
 <main class="content">
 
  <div class="topbar">
-  <div>
-   <div class="page-title">URL Security Scanner</div>
-   <div class="page-subtitle">ZAIN SENTINEL X / Website Analysis</div>
-  </div>
-  <div class="settings">● System Online</div>
+  <div class="top-label">ZAIN SENTINEL X / SECURITY ANALYSIS</div>
+  <div class="status">● SYSTEM READY</div>
  </div>
 
+ <section class="heading">
+  <div class="eyebrow">CYBER SECURITY MODULE</div>
+  <h1>URL Security Scanner</h1>
+  <p>Inspect website addresses and identify common suspicious patterns.</p>
+ </section>
+
+ <!-- STATISTICS -->
  <section class="stats">
   <div class="stat">
    <div class="stat-label">TOTAL SCANS</div>
    <div class="stat-value" id="totalScans">0</div>
    <div class="stat-note">Saved on this device</div>
   </div>
+
   <div class="stat">
    <div class="stat-label">HIGH RISK FLAGS</div>
    <div class="stat-value red" id="highRisk">0</div>
    <div class="stat-note">High indicator results</div>
   </div>
+
   <div class="stat">
    <div class="stat-label">LAST SCAN</div>
    <div class="stat-value" id="lastScan" style="font-size:16px">—</div>
@@ -302,18 +359,22 @@ input:focus{border-color:var(--blue)}
   </div>
  </section>
 
+ <!-- SCANNER -->
  <section class="panel">
   <div class="panel-head">
-   <div class="panel-title"><span class="panel-icon">▦</span>01 / URL SCANNER</div>
-   <div class="tag">LOCAL ANALYSIS</div>
+   <div class="panel-title"><span class="panel-icon">⌕</span>01 / URL ANALYSIS</div>
+   <div class="tag">LOCAL SCANNER</div>
   </div>
 
   <label class="label" for="url">ENTER WEBSITE ADDRESS</label>
 
   <div class="input-wrap">
-   <input id="url" type="text" placeholder="https://example.com"
+   <input id="url" type="text"
+    placeholder="https://example.com"
     autocomplete="url" spellcheck="false">
-   <button class="primary" id="scanButton" type="button">ANALYZE URL</button>
+   <button class="primary" id="scanButton" type="button">
+    ANALYZE URL
+   </button>
   </div>
 
   <p class="hint">
@@ -326,20 +387,28 @@ input:focus{border-color:var(--blue)}
     <div id="verdict" class="verdict"></div>
     <div id="score" class="score"></div>
    </div>
-   <div class="meter"><div id="meterFill" class="meter-fill"></div></div>
+
+   <div class="meter">
+    <div id="meterFill" class="meter-fill"></div>
+   </div>
+
    <div id="domain" class="domain"></div>
    <div id="reasons"></div>
    <p id="notice" class="notice"></p>
+
    <div class="actions">
-    <button class="secondary" id="copyReport" type="button">COPY REPORT</button>
+    <button class="secondary" id="copyReport" type="button">
+     COPY REPORT
+    </button>
    </div>
   </div>
  </section>
 
+ <!-- MODULES -->
  <section class="panel">
   <div class="panel-head">
    <div class="panel-title"><span class="panel-icon">◇</span>02 / ANALYSIS MODULES</div>
-   <div class="tag">ACTIVE</div>
+   <div class="tag">3 MODULES</div>
   </div>
 
   <div class="modules">
@@ -348,11 +417,13 @@ input:focus{border-color:var(--blue)}
     <strong>DOMAIN INSPECTION</strong>
     <p>Checks domain structure, length and subdomain patterns.</p>
    </div>
+
    <div class="module">
     <div class="module-icon">◇</div>
     <strong>PHISHING INDICATORS</strong>
     <p>Looks for suspicious wording and unexpected brand references.</p>
    </div>
+
    <div class="module">
     <div class="module-icon">▤</div>
     <strong>RISK SCORING</strong>
@@ -361,11 +432,15 @@ input:focus{border-color:var(--blue)}
   </div>
  </section>
 
+ <!-- HISTORY -->
  <section class="panel">
   <div class="panel-head">
    <div class="panel-title"><span class="panel-icon">▤</span>03 / SCAN HISTORY</div>
-   <button class="secondary" id="clearHistory" type="button">CLEAR HISTORY</button>
+   <button class="secondary" id="clearHistory" type="button">
+    CLEAR HISTORY
+   </button>
   </div>
+
   <div id="history" class="history">
    <div class="empty">No scans yet.</div>
   </div>
@@ -387,13 +462,21 @@ const suspiciousWords=[
  "password-reset","secure-update","wallet-connect","claim-prize",
  "confirm-password","urgent-payment","signin-verify"
 ];
+
 const shorteners=[
- "bit.ly","tinyurl.com","t.co","is.gd","cutt.ly","shorturl.at","ow.ly"
+ "bit.ly","tinyurl.com","t.co","is.gd",
+ "cutt.ly","shorturl.at","ow.ly"
 ];
-const suspiciousTlds=[".zip",".mov",".click",".top",".work",".gq"];
+
+const suspiciousTlds=[
+ ".zip",".mov",".click",".top",".work",".gq"
+];
+
 const brands=[
- "paypal","google","microsoft","apple","amazon","facebook","instagram","netflix"
+ "paypal","google","microsoft","apple",
+ "amazon","facebook","instagram","netflix"
 ];
+
 const HISTORY_KEY="zainHistory";
 let latestReport="";
 
@@ -401,22 +484,33 @@ function readHistory(){
  try{
   const data=JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]");
   return Array.isArray(data)?data:[];
- }catch(e){return [];}
+ }catch(e){
+  return [];
+ }
 }
+
 function writeHistory(data){
- try{localStorage.setItem(HISTORY_KEY,JSON.stringify(data));}catch(e){}
+ try{
+  localStorage.setItem(HISTORY_KEY,JSON.stringify(data));
+ }catch(e){}
 }
+
 function updateStats(){
  const data=readHistory();
+
  document.getElementById("totalScans").textContent=data.length;
+
  document.getElementById("highRisk").textContent=
   data.filter(x=>x.level==="HIGH RISK INDICATORS").length;
+
  document.getElementById("lastScan").textContent=
   data.length?data[0].time.split(",")[0]:"—";
 }
+
 function showHistory(){
  const box=document.getElementById("history");
  const data=readHistory();
+
  box.replaceChildren();
 
  if(!data.length){
@@ -442,43 +536,73 @@ function showHistory(){
   const meta=document.createElement("div");
   meta.className="history-meta";
   meta.textContent=entry.level+" • "+entry.points+"/100 • "+entry.time;
+
   main.append(host,meta);
 
   const pill=document.createElement("span");
   pill.className="pill "+
    (entry.points>=50?"red":entry.points>=25?"orange":"green");
+
   pill.textContent=entry.points>=50?"HIGH":
    entry.points>=25?"CAUTION":"LOW FLAGS";
 
   row.append(main,pill);
   box.appendChild(row);
  });
+
  updateStats();
 }
+
 function showError(message){
  const result=document.getElementById("result");
+
  result.style.display="block";
+
  document.getElementById("verdict").textContent=message;
  document.getElementById("verdict").className="verdict orange";
+
  document.getElementById("score").textContent="";
  document.getElementById("meterFill").style.width="0%";
  document.getElementById("domain").textContent="";
  document.getElementById("reasons").replaceChildren();
- document.getElementById("notice").textContent="Check the address and try again.";
+
+ document.getElementById("notice").textContent=
+  "Check the address and try again.";
+
  latestReport=message;
 }
+
 function scan(){
  const raw=document.getElementById("url").value.trim();
- if(!raw){showError("PLEASE ENTER A URL");return;}
- if(raw.length>2048){showError("URL TOO LONG");return;}
+
+ if(!raw){
+  showError("PLEASE ENTER A URL");
+  return;
+ }
+
+ if(raw.length>2048){
+  showError("URL TOO LONG");
+  return;
+ }
 
  let url;
+
  try{
-  const prepared=/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)?raw:"https://"+raw;
+  const prepared=/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(raw)
+   ?raw:"https://"+raw;
+
   url=new URL(prepared);
-  if(!["http:","https:"].includes(url.protocol)||!url.hostname.includes("."))
+
+  if(
+   !["http:","https:"].includes(url.protocol)||
+   !url.hostname.includes(".")
+  ){
    throw new Error("Invalid URL");
- }catch(e){showError("INVALID URL");return;}
+  }
+ }catch(e){
+  showError("INVALID URL");
+  return;
+ }
 
  let points=0;
  const findings=[];
@@ -490,37 +614,76 @@ function scan(){
   findings.push(message);
  }
 
- if(url.protocol==="http:")flag("The connection does not use HTTPS.",10);
- if(url.username||url.password)flag("The address contains embedded login information.",25);
- if(/^\d{1,3}(\.\d{1,3}){3}$/.test(host))
+ if(url.protocol==="http:"){
+  flag("The connection does not use HTTPS.",10);
+ }
+
+ if(url.username||url.password){
+  flag("The address contains embedded login information.",25);
+ }
+
+ if(/^\d{1,3}(\.\d{1,3}){3}$/.test(host)){
   flag("The address uses an IP address instead of a typical domain name.",20);
- if(host.startsWith("xn--")||host.includes(".xn--"))
+ }
+
+ if(host.startsWith("xn--")||host.includes(".xn--")){
   flag("The domain contains an internationalized punycode label.",20);
- if(host.split(".").length>=5)
+ }
+
+ if(host.split(".").length>=5){
   flag("The domain has an unusually large number of subdomains.",15);
- if(host.length>45)flag("The domain name is unusually long.",10);
- if(raw.length>180)flag("The full URL is unusually long.",10);
- if(suspiciousTlds.some(tld=>host.endsWith(tld)))
+ }
+
+ if(host.length>45){
+  flag("The domain name is unusually long.",10);
+ }
+
+ if(raw.length>180){
+  flag("The full URL is unusually long.",10);
+ }
+
+ if(suspiciousTlds.some(tld=>host.endsWith(tld))){
   flag("The domain uses a top-level domain that deserves extra scrutiny.",15);
- if(shorteners.includes(host))
+ }
+
+ if(shorteners.includes(host)){
   flag("This is a URL shortening service; its destination is not visible here.",15);
+ }
 
  suspiciousWords.forEach(word=>{
-  if(full.includes(word))flag("Suspicious wording detected: "+word,12);
+  if(full.includes(word)){
+   flag("Suspicious wording detected: "+word,12);
+  }
  });
 
  brands.forEach(brand=>{
-  if(host.includes(brand)&&!host.endsWith(brand+".com")&&host!==brand+".com")
+  if(
+   host.includes(brand)&&
+   !host.endsWith(brand+".com")&&
+   host!==brand+".com"
+  ){
    flag("A known brand name appears in an unexpected domain.",20);
+  }
  });
 
- if(url.href.includes("@"))flag("The URL contains an @ character.",10);
+ if(url.href.includes("@")){
+  flag("The URL contains an @ character.",10);
+ }
+
  points=Math.min(points,100);
 
  let level,css;
- if(points>=50){level="HIGH RISK INDICATORS";css="red";}
- else if(points>=25){level="CAUTION";css="orange";}
- else{level="NO OBVIOUS WARNING SIGNS";css="green";}
+
+ if(points>=50){
+  level="HIGH RISK INDICATORS";
+  css="red";
+ }else if(points>=25){
+  level="CAUTION";
+  css="orange";
+ }else{
+  level="NO OBVIOUS WARNING SIGNS";
+  css="green";
+ }
 
  document.getElementById("result").style.display="block";
 
@@ -534,8 +697,9 @@ function scan(){
 
  const meter=document.getElementById("meterFill");
  meter.style.width=points+"%";
- meter.style.background=points>=50?"var(--red)":
-  points>=25?"var(--orange)":"var(--green)";
+ meter.style.background=points>=50
+  ?"var(--red)":points>=25
+  ?"var(--orange)":"var(--green)";
 
  document.getElementById("domain").textContent="DOMAIN: "+host;
 
@@ -556,39 +720,66 @@ function scan(){
   });
  }
 
- const notice="This is a local heuristic analysis, not a reputation database check. A low score does not prove a URL is safe. Do not enter passwords or personal information on an untrusted site.";
+ const notice=
+  "This is a local heuristic analysis, not a reputation database check. A low score does not prove a URL is safe. Do not enter passwords or personal information on an untrusted site.";
+
  document.getElementById("notice").textContent=notice;
 
- latestReport="ZAIN SENTINEL X REPORT\nURL: "+raw+
-  "\nDOMAIN: "+host+"\nRESULT: "+level+"\nSCORE: "+
-  points+"/100\nFINDINGS:\n"+
-  (findings.length?findings.map(x=>"- "+x).join("\n"):
-  "- No basic warning indicators detected.")+
+ latestReport=
+  "ZAIN SENTINEL X REPORT\n"+
+  "URL: "+raw+"\n"+
+  "DOMAIN: "+host+"\n"+
+  "RESULT: "+level+"\n"+
+  "SCORE: "+points+"/100\n"+
+  "FINDINGS:\n"+
+  (findings.length
+   ?findings.map(x=>"- "+x).join("\n")
+   :"- No basic warning indicators detected.")+
   "\n\nNote: Heuristic analysis only; not a safety guarantee.";
 
  const history=readHistory();
- history.unshift({host,level,points,time:new Date().toLocaleString()});
+
+ history.unshift({
+  host,
+  level,
+  points,
+  time:new Date().toLocaleString()
+ });
+
  writeHistory(history.slice(0,10));
  showHistory();
+
+ document.getElementById("copyReport").textContent="COPY REPORT";
 }
 
-document.getElementById("scanButton").addEventListener("click",scan);
-document.getElementById("url").addEventListener("keydown",e=>{
- if(e.key==="Enter")scan();
-});
-document.getElementById("clearHistory").addEventListener("click",()=>{
- try{localStorage.removeItem(HISTORY_KEY);}catch(e){}
- showHistory();
-});
-document.getElementById("copyReport").addEventListener("click",async()=>{
- if(!latestReport)return;
- try{
-  await navigator.clipboard.writeText(latestReport);
-  document.getElementById("copyReport").textContent="REPORT COPIED";
- }catch(e){
-  document.getElementById("copyReport").textContent="COPY NOT AVAILABLE";
- }
-});
+document.getElementById("scanButton")
+ .addEventListener("click",scan);
+
+document.getElementById("url")
+ .addEventListener("keydown",e=>{
+  if(e.key==="Enter")scan();
+ });
+
+document.getElementById("clearHistory")
+ .addEventListener("click",()=>{
+  try{
+   localStorage.removeItem(HISTORY_KEY);
+  }catch(e){}
+  showHistory();
+ });
+
+document.getElementById("copyReport")
+ .addEventListener("click",async()=>{
+  if(!latestReport)return;
+
+  try{
+   await navigator.clipboard.writeText(latestReport);
+   document.getElementById("copyReport").textContent="REPORT COPIED";
+  }catch(e){
+   document.getElementById("copyReport").textContent="COPY NOT AVAILABLE";
+  }
+ });
+
 showHistory();
 </script>
 </body>
