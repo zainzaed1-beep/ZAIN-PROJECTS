@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<title>ZAIN SENTINEL X | UNIVERSAL SCANNER</title>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<style>
+:root{
+ --bg:#07111f;
+ --sidebar:#09182a;
+ --panel:#0d1d31;
+ --border:#1d3b59;
+ --blue:#258cff;
+ --cyan:#45c9f5;
+ --green:#28d6a0;
+ --orange:#ffbd59;
+ --text:#edf6ff;
+ --muted:#829bb6;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,Helvetica,sans-serif;min-height:100vh;
+}
+button{font:inherit;cursor:pointer}
+.layout{display:flex;min-height:100vh}
+
+.sidebar{
+ width:240px;position:fixed;inset:0 auto 0 0;
+ background:linear-gradient(180deg,#0a1c31,#071321);
+ border-right:1px solid var(--border);
+ padding:25px 16px;display:flex;flex-direction:column;
+ z-index:5;
+}
+.brand{
+ display:flex;align-items:center;gap:11px;
+ padding:5px 9px 35px;font-size:21px;
+ font-weight:900;letter-spacing:3px;
+}
+.brand-symbol{
+ width:39px;height:39px;border-radius:9px;
+ display:grid;place-items:center;color:white;
+ background:#123c68;border:1px solid #2867a1;
+ font-size:24px;
+}
+.brand span:last-child{color:var(--cyan)}
+.menu-label{
+ font-size:10px;letter-spacing:2px;color:#6e89a5;
+ padding:0 12px;margin-bottom:12px;
+}
+.nav a{
+ display:flex;align-items:center;gap:13px;
+ padding:14px 13px;margin-bottom:7px;
+ border:1px solid transparent;border-radius:7px;
+ color:#91a9c2;text-decoration:none;font-size:13px;
+}
+.nav a:hover{background:#10243b;color:white}
+.nav a.active{
+ background:#102b49;color:#65baff;
+ border-color:#24517d;
+}
+.nav-icon{width:20px;text-align:center;font-size:18px}
+
+.main{
+ margin-left:240px;width:calc(100% - 240px);
+ padding:28px 35px 45px;max-width:1600px;
+}
+.topbar{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;padding-bottom:19px;
+ border-bottom:1px solid var(--border);
+}
+.top-label{font-size:10px;letter-spacing:2px;color:var(--muted)}
+.status{
+ padding:9px 13px;border:1px solid #1c5b50;
+ background:#0b2826;color:var(--green);
+ border-radius:5px;font-size:10px;letter-spacing:1px;
+}
+.back-button{
+ display:inline-flex;align-items:center;gap:9px;
+ margin-top:19px;padding:10px 14px;
+ background:#102640;border:1px solid #294766;
+ border-radius:6px;color:#cfe5fa;
+ text-decoration:none;font-size:10px;font-weight:bold;
+}
+.heading{margin:27px 0 23px}
+.eyebrow{
+ color:var(--cyan);font-size:10px;
+ letter-spacing:3px;font-weight:bold;margin-bottom:10px;
+}
+.heading h1{font-size:clamp(25px,4vw,34px);margin:0 0 9px}
+.heading p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+
+.grid{
+ display:grid;
+ grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+ gap:18px;align-items:start;
+}
+.panel{
+ background:linear-gradient(145deg,#10243a,#0b192a);
+ border:1px solid var(--border);
+ border-radius:10px;padding:23px;
+ box-shadow:0 12px 35px #00000018;
+}
+.panel-title{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;margin-bottom:20px;
+}
+.panel-title h2{margin:0;font-size:11px;letter-spacing:1.7px}
+.tag{
+ color:var(--cyan);font-size:9px;letter-spacing:1px;
+ padding:6px 9px;border:1px solid #24527a;border-radius:4px;
+}
+.tabs{
+ display:grid;grid-template-columns:1fr 1fr;gap:9px;
+ margin-bottom:17px;
+}
+.tab{
+ padding:13px 8px;background:#0a192a;
+ border:1px solid #29425e;color:var(--muted);
+ border-radius:6px;font-size:11px;font-weight:bold;
+}
+.tab.active{
+ color:white;background:#12365b;border-color:var(--blue);
+}
+.camera-box{
+ background:#050d17;border:1px solid #254663;
+ border-radius:9px;overflow:hidden;min-height:250px;
+}
+#reader{width:100%;border:0!important}
+#reader video{width:100%!important;object-fit:cover}
+#reader img{display:none}
+#reader__dashboard{padding:10px!important}
+#reader__dashboard button{
+ padding:9px!important;background:#164c80!important;
+ color:white!important;border:0!important;border-radius:5px!important;
+}
+#reader__dashboard select{
+ background:#10243a!important;color:white!important;
+ padding:8px!important;border:1px solid #315575!important;
+}
+#reader__status_span{color:var(--cyan)!important}
+.camera-placeholder{
+ min-height:250px;display:grid;place-items:center;
+ text-align:center;padding:20px;color:var(--muted);
+}
+.camera-placeholder strong{
+ display:block;color:var(--cyan);font-size:35px;margin-bottom:12px;
+}
+.controls{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;
+ margin-top:16px;
+}
+.action{
+ padding:13px 10px;border:1px solid #315575;
+ border-radius:6px;background:#102640;
+ color:#d9edff;font-size:10px;font-weight:bold;
+ letter-spacing:.5px;
+}
+.action.primary{
+ background:linear-gradient(100deg,#1269c7,#168fe9);
+ border-color:#4bafff;color:white;
+}
+.action:hover{filter:brightness(1.2)}
+.upload-box{
+ margin-top:15px;padding:19px;
+ border:1px dashed #315575;border-radius:8px;
+ text-align:center;background:#0a1929;
+}
+.upload-box strong{color:var(--cyan);font-size:12px}
+.upload-box p{font-size:10px;color:var(--muted);line-height:1.6}
+.upload-box input{display:none}
+.result{
+ margin-top:18px;padding:16px;
+ background:#0a1929;border:1px solid #1c3854;
+ border-radius:7px;
+}
+.result-head{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;margin-bottom:12px;
+}
+.result-head strong{font-size:11px;letter-spacing:1px}
+.result-type{color:var(--green);font-size:9px}
+.result-content{
+ min-height:55px;padding:12px;
+ background:#071321;border:1px solid #1b334d;
+ border-radius:5px;color:#d7ebff;
+ font-size:12px;line-height:1.7;
+ overflow-wrap:anywhere;white-space:pre-wrap;
+}
+.copy-btn{
+ margin-top:10px;padding:9px 13px;
+ background:#12365b;color:#cce6ff;
+ border:1px solid #315575;border-radius:5px;
+ font-size:10px;
+}
+.history{margin-top:20px}
+.history-head{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:12px;
+}
+.history-head h3{font-size:11px;letter-spacing:1.5px}
+.clear-btn{
+ background:#102238;color:#91a9c2;
+ border:1px solid #29425e;border-radius:5px;
+ padding:7px 11px;font-size:9px;
+}
+.history-item{
+ padding:12px 0;border-bottom:1px solid #1a334d;
+ font-size:10px;overflow-wrap:anywhere;
+}
+.history-item strong{display:block;color:var(--cyan);margin-bottom:5px}
+.empty{
+ padding:18px;text-align:center;color:#718ba5;
+ background:#0a1929;border:1px dashed #29425e;
+ border-radius:6px;font-size:11px;
+}
+.note{
+ margin-top:17px;padding:13px;
+ background:#0a1929;border:1px solid #1b3854;
+ border-radius:6px;color:#819bb5;font-size:10px;line-height:1.8;
+}
+@media(max-width:950px){
+ .sidebar{width:76px;padding:20px 8px}
+ .brand{justify-content:center;padding:5px 0 35px}
+ .brand .brand-name,.menu-label,.nav-text{display:none}
+ .nav a{justify-content:center;padding:14px 5px}
+ .main{margin-left:76px;width:calc(100% - 76px);padding:23px 20px}
+ .grid{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .main{padding:16px 12px 30px}
+ .top-label{font-size:8px;letter-spacing:1px}
+ .panel{padding:16px}
+ .heading h1{font-size:25px}
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+ <div class="brand">
+  <div class="brand-symbol">ϟ</div>
+  <span class="brand-name">ZAIN</span>
+  <span>X</span>
+ </div>
+
+ <div class="menu-label">MAIN MENU</div>
+ <nav class="nav">
+  <a href="home.html"><span class="nav-icon">⌂</span><span class="nav-text">Overview</span></a>
+  <a href="scanner.html"><span class="nav-icon">⌕</span><span class="nav-text">URL Scanner</span></a>
+  <a href="speed-test.html"><span class="nav-icon">◉</span><span class="nav-text">Speed Test</span></a>
+  <a class="active" href="universal-scanner.html"><span class="nav-icon">▦</span><span class="nav-text">Universal Scanner</span></a>
+ </nav>
+</aside>
+
+<main class="main">
+ <div class="topbar">
+  <div class="top-label">ZAIN SENTINEL X / UNIVERSAL SCANNER</div>
+  <div class="status">● SCANNER READY</div>
+ </div>
+
+ <a href="home.html" class="back-button">← BACK TO DASHBOARD</a>
+
+ <div class="heading">
+  <div class="eyebrow">MULTI-FORMAT RECOGNITION SYSTEM</div>
+  <h1>Universal Scanner X</h1>
+  <p>Scan QR codes, product barcodes and supported images using your camera or device files.</p>
+ </div>
+
+ <div class="grid">
+  <section class="panel">
+   <div class="panel-title">
+    <h2>SCANNING TERMINAL</h2>
+    <span class="tag">LIVE / FILE</span>
+   </div>
+
+   <div class="tabs">
+    <button class="tab active" id="cameraTab">◉ LIVE CAMERA</button>
+    <button class="tab" id="fileTab">▧ FILE SCANNER</button>
+   </div>
+
+   <div id="cameraSection">
+    <div class="camera-box">
+     <div id="reader">
+      <div class="camera-placeholder">
+       <div>
+        <strong>⌗</strong>
+        CAMERA SCANNER<br>
+        <small>Start the camera to scan a code</small>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="controls">
+     <button class="action primary" id="startCamera">START CAMERA</button>
+     <button class="action" id="stopCamera">STOP CAMERA</button>
+    </div>
+   </div>
+
+   <div id="fileSection" hidden>
+    <div class="upload-box">
+     <strong>UPLOAD IMAGE OR PHOTO</strong>
+     <p>Select an image containing a QR code or supported barcode.</p>
+     <label class="action primary" for="fileInput">CHOOSE IMAGE</label>
+     <input type="file" id="fileInput" accept="image/*">
+     <div id="fileName" style="font-size:10px;color:#829bb6;margin-top:12px"></div>
+    </div>
+   </div>
+
+   <div class="result">
+    <div class="result-head">
+     <strong>SCAN RESULT</strong>
+     <span class="result-type" id="resultType">WAITING</span>
+    </div>
+    <div class="result-content" id="resultContent">No code detected yet.</div>
+    <button class="copy-btn" id="copyBtn">COPY RESULT</button>
+   </div>
+  </section>
+
+  <section class="panel">
+   <div class="panel-title">
+    <h2>SCAN HISTORY</h2>
+    <span class="tag">LOCAL STORAGE</span>
+   </div>
+   <div class="history-head">
+    <h3>RECENT RESULTS</h3>
+    <button class="clear-btn" id="clearHistory">CLEAR ALL</button>
+   </div>
+   <div id="historyList"></div>
+
+   <div class="note">
+    <strong style="color:#b8d9f5">SUPPORTED FORMATS</strong><br>
+    QR Code, EAN-13, EAN-8, UPC-A, UPC-E, Code 39, Code 93, Code 128, ITF, Codabar and supported image formats.
+   </div>
+
+   <div class="note">
+    <strong style="color:#b8d9f5">PRIVACY & SECURITY</strong><br>
+    Camera access requires your permission. Image scanning is performed in your browser using the scanner library. Be careful before opening links or using information obtained from unknown codes.
+   </div>
+  </section>
+ </div>
+</main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let scanner = null;
+let cameraRunning = false;
+let currentResult = "";
+let history = [];
+
+try {
+ history = JSON.parse(localStorage.getItem("zainUniversalHistory") || "[]");
+ if(!Array.isArray(history)) history = [];
+} catch {
+ history = [];
+}
+
+function showResult(text,type="DETECTED"){
+ currentResult = String(text);
+
+ $("resultContent").textContent = currentResult;
+ $("resultType").textContent = type;
+
+ history.unshift({
+  text:currentResult,
+  date:new Date().toLocaleString()
+ });
+
+ history = history.slice(0,15);
+
+ try{
+  localStorage.setItem("zainUniversalHistory",JSON.stringify(history));
+ }catch(error){
+  console.warn("History could not be saved",error);
+ }
+
+ renderHistory();
+}
+
+function renderHistory(){
+ const box = $("historyList");
+ box.replaceChildren();
+
+ if(!history.length){
+  const empty = document.createElement("div");
+  empty.className = "empty";
+  empty.textContent = "No scan history yet.";
+  box.appendChild(empty);
+  return;
+ }
+
+ history.forEach(item=>{
+  const row = document.createElement("div");
+  row.className = "history-item";
+
+  const value = document.createElement("strong");
+  value.textContent = item.text;
+
+  const date = document.createElement("span");
+  date.textContent = item.date;
+
+  row.append(value,date);
+  box.appendChild(row);
+ });
+}
+
+function onScanSuccess(decodedText,decodedResult){
+ showResult(decodedText,decodedResult?.result?.format?.formatName || "DETECTED");
+ stopCamera();
+}
+
+function getScanner(){
+ if(!scanner){
+  if(typeof Html5Qrcode === "undefined"){
+   throw new Error("Scanner library could not load. Check your internet connection.");
+  }
+
+  scanner = new Html5Qrcode("reader");
+ }
+ return scanner;
+}
+
+async function startCamera(){
+ try{
+  if(cameraRunning) return;
+
+  const engine = getScanner();
+
+  await engine.start(
+   {facingMode:"environment"},
+   {
+    fps:10,
+    qrbox:{width:240,height:240},
+    aspectRatio:1
+   },
+   onScanSuccess,
+   ()=>{}
+  );
+
+  cameraRunning = true;
+  $("startCamera").textContent = "CAMERA ACTIVE";
+
+ }catch(error){
+  alert("Could not start camera. Allow camera permission and use HTTPS or localhost.\n\n"+error);
+ }
+}
+
+async function stopCamera(){
+ if(!scanner || !cameraRunning) return;
+
+ try{
+  await scanner.stop();
+  scanner.clear();
+ }catch(error){
+  console.warn(error);
+ }finally{
+  cameraRunning = false;
+  $("startCamera").textContent = "START CAMERA";
+ }
+}
+
+async function scanFile(file){
+ if(!file) return;
+
+ if(!file.type.startsWith("image/")){
+  alert("Please choose an image file.");
+  return;
+ }
+
+ $("fileName").textContent = "Reading: " + file.name;
+
+ try{
+  const engine = getScanner();
+
+  const result = await engine.scanFile(file,true);
+
+  showResult(result,"IMAGE SCAN");
+
+ }catch(error){
+  $("resultContent").textContent = "No supported code was found in this image.";
+  $("resultType").textContent = "NOT FOUND";
+ }
+}
+
+$("cameraTab").addEventListener("click",()=>{
+ $("cameraSection").hidden = false;
+ $("fileSection").hidden = true;
+ $("cameraTab").classList.add("active");
+ $("fileTab").classList.remove("active");
+});
+
+$("fileTab").addEventListener("click",async()=>{
+ await stopCamera();
+ $("cameraSection").hidden = true;
+ $("fileSection").hidden = false;
+ $("fileTab").classList.add("active");
+ $("cameraTab").classList.remove("active");
+});
+
+$("startCamera").addEventListener("click",startCamera);
+$("stopCamera").addEventListener("click",stopCamera);
+
+$("fileInput").addEventListener("change",event=>{
+ const file = event.target.files?.[0];
+ scanFile(file);
+});
+
+$("copyBtn").addEventListener("click",async()=>{
+ if(!currentResult){
+  alert("There is no result to copy.");
+  return;
+ }
+
+ try{
+  await navigator.clipboard.writeText(currentResult);
+  $("copyBtn").textContent = "COPIED!";
+  setTimeout(()=>$("copyBtn").textContent="COPY RESULT",1500);
+ }catch{
+  alert("Clipboard access is unavailable in this browser.");
+ }
+});
+
+$("clearHistory").addEventListener("click",()=>{
+ if(!history.length) return;
+
+ if(!confirm("Clear all scan history?")) return;
+
+ history = [];
+ localStorage.removeItem("zainUniversalHistory");
+ renderHistory();
+});
+
+document.addEventListener("visibilitychange",()=>{
+ if(document.hidden && cameraRunning) stopCamera();
+});
+
+renderHistory();
+</script>
+</body>
+</html>
+
