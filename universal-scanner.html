@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,208 +22,441 @@
  --muted:#829bb6;
 }
 *{box-sizing:border-box}
+
 body{
- margin:0;background:var(--bg);color:var(--text);
- font-family:Arial,Helvetica,sans-serif;min-height:100vh;
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,Helvetica,sans-serif;
+ min-height:100vh;
 }
+
 button{font:inherit;cursor:pointer}
+[hidden]{display:none!important}
 .layout{display:flex;min-height:100vh}
 
 .sidebar{
- width:240px;position:fixed;inset:0 auto 0 0;
+ width:240px;
+ position:fixed;
+ inset:0 auto 0 0;
  background:linear-gradient(180deg,#0a1c31,#071321);
  border-right:1px solid var(--border);
- padding:25px 16px;display:flex;flex-direction:column;
+ padding:25px 16px;
+ display:flex;
+ flex-direction:column;
  z-index:5;
 }
+
 .brand{
- display:flex;align-items:center;gap:11px;
- padding:5px 9px 35px;font-size:21px;
- font-weight:900;letter-spacing:3px;
+ display:flex;
+ align-items:center;
+ gap:11px;
+ padding:5px 9px 35px;
+ font-size:21px;
+ font-weight:900;
+ letter-spacing:3px;
 }
+
 .brand-symbol{
- width:39px;height:39px;border-radius:9px;
- display:grid;place-items:center;color:white;
- background:#123c68;border:1px solid #2867a1;
+ width:39px;
+ height:39px;
+ border-radius:9px;
+ display:grid;
+ place-items:center;
+ color:white;
+ background:#123c68;
+ border:1px solid #2867a1;
  font-size:24px;
 }
+
 .brand span:last-child{color:var(--cyan)}
+
 .menu-label{
- font-size:10px;letter-spacing:2px;color:#6e89a5;
- padding:0 12px;margin-bottom:12px;
+ font-size:10px;
+ letter-spacing:2px;
+ color:#6e89a5;
+ padding:0 12px;
+ margin-bottom:12px;
 }
+
 .nav a{
- display:flex;align-items:center;gap:13px;
- padding:14px 13px;margin-bottom:7px;
- border:1px solid transparent;border-radius:7px;
- color:#91a9c2;text-decoration:none;font-size:13px;
+ display:flex;
+ align-items:center;
+ gap:13px;
+ padding:14px 13px;
+ margin-bottom:7px;
+ border:1px solid transparent;
+ border-radius:7px;
+ color:#91a9c2;
+ text-decoration:none;
+ font-size:13px;
 }
+
 .nav a:hover{background:#10243b;color:white}
+
 .nav a.active{
- background:#102b49;color:#65baff;
+ background:#102b49;
+ color:#65baff;
  border-color:#24517d;
 }
-.nav-icon{width:20px;text-align:center;font-size:18px}
+
+.nav-icon{
+ width:20px;
+ text-align:center;
+ font-size:18px;
+}
 
 .main{
- margin-left:240px;width:calc(100% - 240px);
- padding:28px 35px 45px;max-width:1600px;
+ margin-left:240px;
+ width:calc(100% - 240px);
+ padding:28px 35px 45px;
+ max-width:1600px;
 }
+
 .topbar{
- display:flex;align-items:center;justify-content:space-between;
- gap:12px;padding-bottom:19px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding-bottom:19px;
  border-bottom:1px solid var(--border);
 }
-.top-label{font-size:10px;letter-spacing:2px;color:var(--muted)}
+
+.top-label{
+ font-size:10px;
+ letter-spacing:2px;
+ color:var(--muted);
+}
+
 .status{
- padding:9px 13px;border:1px solid #1c5b50;
- background:#0b2826;color:var(--green);
- border-radius:5px;font-size:10px;letter-spacing:1px;
+ padding:9px 13px;
+ border:1px solid #1c5b50;
+ background:#0b2826;
+ color:var(--green);
+ border-radius:5px;
+ font-size:10px;
+ letter-spacing:1px;
+ white-space:nowrap;
 }
+
 .back-button{
- display:inline-flex;align-items:center;gap:9px;
- margin-top:19px;padding:10px 14px;
- background:#102640;border:1px solid #294766;
- border-radius:6px;color:#cfe5fa;
- text-decoration:none;font-size:10px;font-weight:bold;
+ display:inline-flex;
+ align-items:center;
+ gap:9px;
+ margin-top:19px;
+ padding:10px 14px;
+ background:#102640;
+ border:1px solid #294766;
+ border-radius:6px;
+ color:#cfe5fa;
+ text-decoration:none;
+ font-size:10px;
+ font-weight:bold;
 }
+
 .heading{margin:27px 0 23px}
+
 .eyebrow{
- color:var(--cyan);font-size:10px;
- letter-spacing:3px;font-weight:bold;margin-bottom:10px;
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:3px;
+ font-weight:bold;
+ margin-bottom:10px;
 }
-.heading h1{font-size:clamp(25px,4vw,34px);margin:0 0 9px}
-.heading p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+
+.heading h1{
+ font-size:clamp(25px,4vw,34px);
+ margin:0 0 9px;
+}
+
+.heading p{
+ margin:0;
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.7;
+}
 
 .grid{
  display:grid;
  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
- gap:18px;align-items:start;
+ gap:18px;
+ align-items:start;
 }
+
 .panel{
  background:linear-gradient(145deg,#10243a,#0b192a);
  border:1px solid var(--border);
- border-radius:10px;padding:23px;
+ border-radius:10px;
+ padding:23px;
  box-shadow:0 12px 35px #00000018;
 }
+
 .panel-title{
- display:flex;justify-content:space-between;
- align-items:center;gap:10px;margin-bottom:20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:20px;
 }
-.panel-title h2{margin:0;font-size:11px;letter-spacing:1.7px}
+
+.panel-title h2{
+ margin:0;
+ font-size:11px;
+ letter-spacing:1.7px;
+}
+
 .tag{
- color:var(--cyan);font-size:9px;letter-spacing:1px;
- padding:6px 9px;border:1px solid #24527a;border-radius:4px;
+ color:var(--cyan);
+ font-size:9px;
+ letter-spacing:1px;
+ padding:6px 9px;
+ border:1px solid #24527a;
+ border-radius:4px;
 }
+
 .tabs{
- display:grid;grid-template-columns:1fr 1fr;gap:9px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:9px;
  margin-bottom:17px;
 }
+
 .tab{
- padding:13px 8px;background:#0a192a;
- border:1px solid #29425e;color:var(--muted);
- border-radius:6px;font-size:11px;font-weight:bold;
+ padding:13px 8px;
+ background:#0a192a;
+ border:1px solid #29425e;
+ color:var(--muted);
+ border-radius:6px;
+ font-size:11px;
+ font-weight:bold;
 }
+
 .tab.active{
- color:white;background:#12365b;border-color:var(--blue);
+ color:white;
+ background:#12365b;
+ border-color:var(--blue);
 }
+
 .camera-box{
- background:#050d17;border:1px solid #254663;
- border-radius:9px;overflow:hidden;min-height:250px;
+ background:#050d17;
+ border:1px solid #254663;
+ border-radius:9px;
+ overflow:hidden;
+ min-height:250px;
 }
+
 #reader{width:100%;border:0!important}
 #reader video{width:100%!important;object-fit:cover}
 #reader img{display:none}
+
 #reader__dashboard{padding:10px!important}
 #reader__dashboard button{
- padding:9px!important;background:#164c80!important;
- color:white!important;border:0!important;border-radius:5px!important;
+ padding:9px!important;
+ background:#164c80!important;
+ color:white!important;
+ border:0!important;
+ border-radius:5px!important;
 }
+
 #reader__dashboard select{
- background:#10243a!important;color:white!important;
- padding:8px!important;border:1px solid #315575!important;
+ background:#10243a!important;
+ color:white!important;
+ padding:8px!important;
+ border:1px solid #315575!important;
 }
+
 #reader__status_span{color:var(--cyan)!important}
+
 .camera-placeholder{
- min-height:250px;display:grid;place-items:center;
- text-align:center;padding:20px;color:var(--muted);
+ min-height:250px;
+ display:grid;
+ place-items:center;
+ text-align:center;
+ padding:20px;
+ color:var(--muted);
 }
+
 .camera-placeholder strong{
- display:block;color:var(--cyan);font-size:35px;margin-bottom:12px;
+ display:block;
+ color:var(--cyan);
+ font-size:35px;
+ margin-bottom:12px;
 }
+
 .controls{
- display:grid;grid-template-columns:1fr 1fr;gap:10px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
  margin-top:16px;
 }
+
 .action{
- padding:13px 10px;border:1px solid #315575;
- border-radius:6px;background:#102640;
- color:#d9edff;font-size:10px;font-weight:bold;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ padding:13px 10px;
+ border:1px solid #315575;
+ border-radius:6px;
+ background:#102640;
+ color:#d9edff;
+ font-size:10px;
+ font-weight:bold;
  letter-spacing:.5px;
+ text-align:center;
 }
+
 .action.primary{
  background:linear-gradient(100deg,#1269c7,#168fe9);
- border-color:#4bafff;color:white;
+ border-color:#4bafff;
+ color:white;
 }
+
 .action:hover{filter:brightness(1.2)}
+
 .upload-box{
- margin-top:15px;padding:19px;
- border:1px dashed #315575;border-radius:8px;
- text-align:center;background:#0a1929;
+ margin-top:15px;
+ padding:19px;
+ border:1px dashed #315575;
+ border-radius:8px;
+ text-align:center;
+ background:#0a1929;
 }
+
 .upload-box strong{color:var(--cyan);font-size:12px}
-.upload-box p{font-size:10px;color:var(--muted);line-height:1.6}
+
+.upload-box p{
+ font-size:10px;
+ color:var(--muted);
+ line-height:1.6;
+}
+
 .upload-box input{display:none}
+
 .result{
- margin-top:18px;padding:16px;
- background:#0a1929;border:1px solid #1c3854;
+ margin-top:18px;
+ padding:16px;
+ background:#0a1929;
+ border:1px solid #1c3854;
  border-radius:7px;
 }
+
 .result-head{
- display:flex;justify-content:space-between;
- align-items:center;gap:10px;margin-bottom:12px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:12px;
 }
-.result-head strong{font-size:11px;letter-spacing:1px}
-.result-type{color:var(--green);font-size:9px}
+
+.result-head strong{
+ font-size:11px;
+ letter-spacing:1px;
+}
+
+.result-type{
+ color:var(--green);
+ font-size:9px;
+}
+
 .result-content{
- min-height:55px;padding:12px;
- background:#071321;border:1px solid #1b334d;
- border-radius:5px;color:#d7ebff;
- font-size:12px;line-height:1.7;
- overflow-wrap:anywhere;white-space:pre-wrap;
+ min-height:55px;
+ padding:12px;
+ background:#071321;
+ border:1px solid #1b334d;
+ border-radius:5px;
+ color:#d7ebff;
+ font-size:12px;
+ line-height:1.7;
+ overflow-wrap:anywhere;
+ white-space:pre-wrap;
 }
+
+.result-actions{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-top:10px;
+}
+
 .copy-btn{
- margin-top:10px;padding:9px 13px;
- background:#12365b;color:#cce6ff;
- border:1px solid #315575;border-radius:5px;
+ padding:10px 13px;
+ background:#12365b;
+ color:#cce6ff;
+ border:1px solid #315575;
+ border-radius:5px;
  font-size:10px;
+ font-weight:bold;
 }
+
+.open-btn{
+ padding:10px 15px;
+ background:linear-gradient(100deg,#087bce,#168fe9);
+ color:white;
+ border:1px solid #4bafff;
+ border-radius:5px;
+ font-size:10px;
+ font-weight:bold;
+}
+
+.open-btn:hover,.copy-btn:hover{filter:brightness(1.2)}
+
 .history{margin-top:20px}
+
 .history-head{
- display:flex;justify-content:space-between;
- align-items:center;margin-bottom:12px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:12px;
 }
-.history-head h3{font-size:11px;letter-spacing:1.5px}
+
+.history-head h3{
+ font-size:11px;
+ letter-spacing:1.5px;
+}
+
 .clear-btn{
- background:#102238;color:#91a9c2;
- border:1px solid #29425e;border-radius:5px;
- padding:7px 11px;font-size:9px;
+ background:#102238;
+ color:#91a9c2;
+ border:1px solid #29425e;
+ border-radius:5px;
+ padding:7px 11px;
+ font-size:9px;
 }
+
 .history-item{
- padding:12px 0;border-bottom:1px solid #1a334d;
- font-size:10px;overflow-wrap:anywhere;
+ padding:12px 0;
+ border-bottom:1px solid #1a334d;
+ font-size:10px;
+ overflow-wrap:anywhere;
 }
-.history-item strong{display:block;color:var(--cyan);margin-bottom:5px}
+
+.history-item strong{
+ display:block;
+ color:var(--cyan);
+ margin-bottom:5px;
+}
+
 .empty{
- padding:18px;text-align:center;color:#718ba5;
- background:#0a1929;border:1px dashed #29425e;
- border-radius:6px;font-size:11px;
+ padding:18px;
+ text-align:center;
+ color:#718ba5;
+ background:#0a1929;
+ border:1px dashed #29425e;
+ border-radius:6px;
+ font-size:11px;
 }
+
 .note{
- margin-top:17px;padding:13px;
- background:#0a1929;border:1px solid #1b3854;
- border-radius:6px;color:#819bb5;font-size:10px;line-height:1.8;
+ margin-top:17px;
+ padding:13px;
+ background:#0a1929;
+ border:1px solid #1b3854;
+ border-radius:6px;
+ color:#819bb5;
+ font-size:10px;
+ line-height:1.8;
 }
+
 @media(max-width:950px){
  .sidebar{width:76px;padding:20px 8px}
  .brand{justify-content:center;padding:5px 0 35px}
@@ -233,6 +465,7 @@ button{font:inherit;cursor:pointer}
  .main{margin-left:76px;width:calc(100% - 76px);padding:23px 20px}
  .grid{grid-template-columns:1fr}
 }
+
 @media(max-width:520px){
  .main{padding:16px 12px 30px}
  .top-label{font-size:8px;letter-spacing:1px}
@@ -253,15 +486,32 @@ button{font:inherit;cursor:pointer}
  </div>
 
  <div class="menu-label">MAIN MENU</div>
+
  <nav class="nav">
-  <a href="home.html"><span class="nav-icon">⌂</span><span class="nav-text">Overview</span></a>
-  <a href="scanner.html"><span class="nav-icon">⌕</span><span class="nav-text">URL Scanner</span></a>
-  <a href="speed-test.html"><span class="nav-icon">◉</span><span class="nav-text">Speed Test</span></a>
-  <a class="active" href="universal-scanner.html"><span class="nav-icon">▦</span><span class="nav-text">Universal Scanner</span></a>
+  <a href="home.html">
+   <span class="nav-icon">⌂</span>
+   <span class="nav-text">Overview</span>
+  </a>
+
+  <a href="scanner.html">
+   <span class="nav-icon">⌕</span>
+   <span class="nav-text">URL Scanner</span>
+  </a>
+
+  <a href="speed-test.html">
+   <span class="nav-icon">◉</span>
+   <span class="nav-text">Speed Test</span>
+  </a>
+
+  <a class="active" href="universal-scanner.html">
+   <span class="nav-icon">▦</span>
+   <span class="nav-text">Universal Scanner</span>
+  </a>
  </nav>
 </aside>
 
 <main class="main">
+
  <div class="topbar">
   <div class="top-label">ZAIN SENTINEL X / UNIVERSAL SCANNER</div>
   <div class="status">● SCANNER READY</div>
@@ -276,7 +526,9 @@ button{font:inherit;cursor:pointer}
  </div>
 
  <div class="grid">
+
   <section class="panel">
+
    <div class="panel-title">
     <h2>SCANNING TERMINAL</h2>
     <span class="tag">LIVE / FILE</span>
@@ -299,6 +551,7 @@ button{font:inherit;cursor:pointer}
       </div>
      </div>
     </div>
+
     <div class="controls">
      <button class="action primary" id="startCamera">START CAMERA</button>
      <button class="action" id="stopCamera">STOP CAMERA</button>
@@ -309,8 +562,10 @@ button{font:inherit;cursor:pointer}
     <div class="upload-box">
      <strong>UPLOAD IMAGE OR PHOTO</strong>
      <p>Select an image containing a QR code or supported barcode.</p>
+
      <label class="action primary" for="fileInput">CHOOSE IMAGE</label>
      <input type="file" id="fileInput" accept="image/*">
+
      <div id="fileName" style="font-size:10px;color:#829bb6;margin-top:12px"></div>
     </div>
    </div>
@@ -320,20 +575,32 @@ button{font:inherit;cursor:pointer}
      <strong>SCAN RESULT</strong>
      <span class="result-type" id="resultType">WAITING</span>
     </div>
+
     <div class="result-content" id="resultContent">No code detected yet.</div>
-    <button class="copy-btn" id="copyBtn">COPY RESULT</button>
+
+    <div class="result-actions">
+     <button class="copy-btn" id="copyBtn">COPY RESULT</button>
+
+     <button class="open-btn" id="openLinkBtn" hidden>
+      OPEN WEBSITE ↗
+     </button>
+    </div>
    </div>
+
   </section>
 
   <section class="panel">
+
    <div class="panel-title">
     <h2>SCAN HISTORY</h2>
     <span class="tag">LOCAL STORAGE</span>
    </div>
+
    <div class="history-head">
     <h3>RECENT RESULTS</h3>
     <button class="clear-btn" id="clearHistory">CLEAR ALL</button>
    </div>
+
    <div id="historyList"></div>
 
    <div class="note">
@@ -343,8 +610,9 @@ button{font:inherit;cursor:pointer}
 
    <div class="note">
     <strong style="color:#b8d9f5">PRIVACY & SECURITY</strong><br>
-    Camera access requires your permission. Image scanning is performed in your browser using the scanner library. Be careful before opening links or using information obtained from unknown codes.
+    Camera access requires your permission. Image scanning is performed in your browser using the scanner library. Always check a link before opening it.
    </div>
+
   </section>
  </div>
 </main>
@@ -358,18 +626,55 @@ let cameraRunning = false;
 let currentResult = "";
 let history = [];
 
-try {
+try{
  history = JSON.parse(localStorage.getItem("zainUniversalHistory") || "[]");
  if(!Array.isArray(history)) history = [];
-} catch {
+}catch{
  history = [];
 }
 
+/* WEBSITE DETECTION */
+function getWebsiteUrl(text){
+ const value = String(text || "").trim();
+
+ if(!value || /\s/.test(value)) return null;
+
+ let candidate = value;
+
+ if(!/^https?:\/\//i.test(candidate)){
+  if(!/^(www\.)?[a-z0-9-]+(\.[a-z0-9-]+)+([/:?#].*)?$/i.test(candidate)){
+   return null;
+  }
+
+  candidate = "https://" + candidate;
+ }
+
+ try{
+  const url = new URL(candidate);
+
+  if(!["http:","https:"].includes(url.protocol)){
+   return null;
+  }
+
+  if(!url.hostname.includes(".")) return null;
+
+  return url.href;
+
+ }catch{
+  return null;
+ }
+}
+
+/* DISPLAY RESULT */
 function showResult(text,type="DETECTED"){
  currentResult = String(text);
 
  $("resultContent").textContent = currentResult;
  $("resultType").textContent = type;
+
+ const website = getWebsiteUrl(currentResult);
+
+ $("openLinkBtn").hidden = !website;
 
  history.unshift({
   text:currentResult,
@@ -379,7 +684,10 @@ function showResult(text,type="DETECTED"){
  history = history.slice(0,15);
 
  try{
-  localStorage.setItem("zainUniversalHistory",JSON.stringify(history));
+  localStorage.setItem(
+   "zainUniversalHistory",
+   JSON.stringify(history)
+  );
  }catch(error){
   console.warn("History could not be saved",error);
  }
@@ -387,6 +695,7 @@ function showResult(text,type="DETECTED"){
  renderHistory();
 }
 
+/* HISTORY */
 function renderHistory(){
  const box = $("historyList");
  box.replaceChildren();
@@ -414,8 +723,13 @@ function renderHistory(){
  });
 }
 
+/* CAMERA SCANNER */
 function onScanSuccess(decodedText,decodedResult){
- showResult(decodedText,decodedResult?.result?.format?.formatName || "DETECTED");
+ showResult(
+  decodedText,
+  decodedResult?.result?.format?.formatName || "DETECTED"
+ );
+
  stopCamera();
 }
 
@@ -427,6 +741,7 @@ function getScanner(){
 
   scanner = new Html5Qrcode("reader");
  }
+
  return scanner;
 }
 
@@ -451,7 +766,9 @@ async function startCamera(){
   $("startCamera").textContent = "CAMERA ACTIVE";
 
  }catch(error){
-  alert("Could not start camera. Allow camera permission and use HTTPS or localhost.\n\n"+error);
+  alert(
+   "Could not start camera. Allow camera permission and use HTTPS or localhost.\n\n" + error
+  );
  }
 }
 
@@ -469,6 +786,7 @@ async function stopCamera(){
  }
 }
 
+/* IMAGE SCANNER */
 async function scanFile(file){
  if(!file) return;
 
@@ -481,32 +799,67 @@ async function scanFile(file){
 
  try{
   const engine = getScanner();
-
   const result = await engine.scanFile(file,true);
 
   showResult(result,"IMAGE SCAN");
 
  }catch(error){
-  $("resultContent").textContent = "No supported code was found in this image.";
+  currentResult = "";
+  $("openLinkBtn").hidden = true;
+  $("resultContent").textContent =
+   "No supported code was found in this image.";
   $("resultType").textContent = "NOT FOUND";
  }
 }
 
+/* OPEN WEBSITE */
+$("openLinkBtn").addEventListener("click",()=>{
+ const website = getWebsiteUrl(currentResult);
+
+ if(!website){
+  alert("This result is not a valid website link.");
+  return;
+ }
+
+ const confirmed = confirm(
+  "You are about to open this website:\n\n" +
+  website +
+  "\n\nOnly continue if you trust this link."
+ );
+
+ if(!confirmed) return;
+
+ const newWindow = window.open(
+  website,
+  "_blank",
+  "noopener,noreferrer"
+ );
+
+ if(!newWindow){
+  alert("Your browser blocked the new tab. Allow pop-ups to open this website.");
+ }
+});
+
+/* TABS */
 $("cameraTab").addEventListener("click",()=>{
  $("cameraSection").hidden = false;
  $("fileSection").hidden = true;
+
  $("cameraTab").classList.add("active");
  $("fileTab").classList.remove("active");
 });
 
 $("fileTab").addEventListener("click",async()=>{
  await stopCamera();
+
  $("cameraSection").hidden = true;
  $("fileSection").hidden = false;
+
  $("fileTab").classList.add("active");
  $("cameraTab").classList.remove("active");
 });
 
+/* BUTTONS */
 $("startCamera").addEventListener("click",startCamera);
 $("stopCamera").addEventListener("click",stopCamera);
 
@@ -523,29 +876,45 @@ $("copyBtn").addEventListener("click",async()=>{
 
  try{
   await navigator.clipboard.writeText(currentResult);
+
   $("copyBtn").textContent = "COPIED!";
-  setTimeout(()=>$("copyBtn").textContent="COPY RESULT",1500);
+
+  setTimeout(()=>{
+   $("copyBtn").textContent = "COPY RESULT";
+  },1500);
+
  }catch{
   alert("Clipboard access is unavailable in this browser.");
  }
 });
 
+/* CLEAR HISTORY */
 $("clearHistory").addEventListener("click",()=>{
  if(!history.length) return;
 
  if(!confirm("Clear all scan history?")) return;
 
  history = [];
+
  localStorage.removeItem("zainUniversalHistory");
+
  renderHistory();
 });
 
+/* STOP CAMERA WHEN PAGE IS HIDDEN */
 document.addEventListener("visibilitychange",()=>{
- if(document.hidden && cameraRunning) stopCamera();
+ if(document.hidden && cameraRunning){
+  stopCamera();
+ }
+});
+
+window.addEventListener("beforeunload",()=>{
+ if(cameraRunning){
+  stopCamera();
+ }
 });
 
 renderHistory();
 </script>
 </body>
 </html>
-
