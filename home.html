@@ -4,53 +4,341 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#071426">
-<title>ZAIN SENTINEL X | HOME</title>
+<meta name="theme-color" content="#050d1c">
+<title>ZAIN SENTINEL X | ULTRA</title>
+
 <style>
 *{box-sizing:border-box}
+
+:root{
+ --blue:#39aaff;
+ --cyan:#69dcff;
+ --bg:#050d1c;
+ --panel:#0b1c33;
+}
+
 body{
- margin:0;min-height:100vh;padding:25px 18px;
- background:linear-gradient(145deg,#06101f,#102b4d,#06101f);
- color:#eaf5ff;font-family:Arial,sans-serif;
+ margin:0;
+ min-height:100vh;
+ padding:22px 17px;
+ font-family:Arial,sans-serif;
+ color:#edf7ff;
+ background:
+ radial-gradient(ellipse at 50% 0%,#123b68 0%,transparent 55%),
+ linear-gradient(145deg,#040a15,#091a30,#050d1c);
+ overflow-x:hidden;
 }
-header{text-align:center;padding:35px 10px}
-.logo{font-size:38px;font-weight:bold;color:#63c8ff;letter-spacing:3px}
-.sub{color:#91aac5;letter-spacing:4px;font-size:12px;margin-top:10px}
-.status{color:#52e6a5;font-size:12px;margin-top:20px}
-main{max-width:600px;margin:25px auto}
-h2{font-size:17px;color:#9bcfff;letter-spacing:2px}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ opacity:.12;
+ background-image:
+ linear-gradient(#4daaff22 1px,transparent 1px),
+ linear-gradient(90deg,#4daaff22 1px,transparent 1px);
+ background-size:35px 35px;
+}
+
+header{
+ max-width:700px;
+ margin:auto;
+ text-align:center;
+ padding:48px 10px 35px;
+ position:relative;
+}
+
+.logo{
+ font-size:55px;
+ font-weight:900;
+ letter-spacing:9px;
+ color:#eaf8ff;
+ text-shadow:0 0 15px #39aaff,0 0 35px #087bff88;
+}
+
+.sub{
+ color:#65caff;
+ letter-spacing:7px;
+ font-size:12px;
+ margin-top:8px;
+}
+
+.line{
+ width:100px;
+ height:2px;
+ margin:22px auto;
+ background:linear-gradient(90deg,transparent,#43baff,transparent);
+}
+
+.status{
+ display:inline-flex;
+ align-items:center;
+ gap:9px;
+ color:#58e8b0;
+ border:1px solid #238c6b66;
+ background:#0b332c66;
+ padding:10px 17px;
+ border-radius:30px;
+ font-size:11px;
+ letter-spacing:2px;
+}
+
+.dot{
+ width:7px;
+ height:7px;
+ border-radius:50%;
+ background:#48efae;
+ box-shadow:0 0 12px #48efae;
+}
+
+main{
+ max-width:620px;
+ margin:20px auto;
+ position:relative;
+}
+
+.section{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin:25px 4px 15px;
+}
+
+h2{
+ color:#a9d9ff;
+ font-size:13px;
+ letter-spacing:3px;
+ margin:0;
+}
+
+.version{
+ color:#547b9e;
+ font-size:10px;
+ letter-spacing:1px;
+}
+
 .card{
- display:block;text-decoration:none;color:white;
- background:linear-gradient(120deg,#102b49,#0b1c32);
- border:1px solid #24527b;border-radius:18px;
- padding:25px;margin:18px 0;
- box-shadow:0 8px 25px #0005;
+ display:block;
+ text-decoration:none;
+ color:white;
+ position:relative;
+ overflow:hidden;
+ background:linear-gradient(130deg,#102b49dd,#09182ddd);
+ border:1px solid #245786;
+ border-radius:19px;
+ padding:25px 23px;
+ margin:15px 0;
+ box-shadow:0 10px 30px #0006;
+ transition:.25s ease;
 }
-.card h3{color:#65c9ff;font-size:20px;margin:0 0 12px}
-.card p{color:#a9bfd5;font-size:13px;line-height:1.7;margin:0}
-.arrow{color:#58c5ff;font-size:13px;margin-top:18px}
-footer{text-align:center;color:#607d9b;font-size:11px;margin-top:50px}
+
+.card:before{
+ content:"";
+ position:absolute;
+ top:0;
+ left:0;
+ width:3px;
+ height:100%;
+ background:linear-gradient(#65dcff,#1478ff);
+}
+
+.card:active{
+ transform:scale(.98);
+ border-color:#61caff;
+}
+
+.card:hover{
+ transform:translateY(-3px);
+ border-color:#55bfff;
+ box-shadow:0 12px 35px #168cff30;
+}
+
+.card-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.number{
+ color:#55caff;
+ font-size:11px;
+ letter-spacing:2px;
+}
+
+.symbol{
+ color:#65caff;
+ font-size:23px;
+ font-weight:bold;
+}
+
+.card h3{
+ color:#e8f7ff;
+ font-size:19px;
+ letter-spacing:1px;
+ margin:18px 0 10px;
+}
+
+.card p{
+ color:#9bb5d0;
+ font-size:13px;
+ line-height:1.8;
+ margin:0;
+}
+
+.arrow{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ color:#58caff;
+ font-size:11px;
+ letter-spacing:2px;
+ margin-top:23px;
+}
+
+.arrow span:last-child{
+ font-size:18px;
+}
+
+.info{
+ margin-top:28px;
+ padding:18px;
+ border:1px solid #1c3e60;
+ border-radius:15px;
+ background:#09182a99;
+}
+
+.info-title{
+ color:#6ecbff;
+ font-size:11px;
+ letter-spacing:2px;
+ margin-bottom:13px;
+}
+
+.info-row{
+ display:flex;
+ justify-content:space-between;
+ padding:9px 0;
+ color:#9cb4cc;
+ font-size:12px;
+ border-bottom:1px solid #ffffff0c;
+}
+
+.info-row:last-child{
+ border:0;
+}
+
+.online{
+ color:#52e6a5;
+}
+
+footer{
+ text-align:center;
+ color:#55718e;
+ font-size:10px;
+ letter-spacing:2px;
+ margin:45px auto 15px;
+ line-height:2;
+}
+
+@media(min-width:700px){
+ body{padding-top:35px}
+ header{padding-top:55px}
+ .logo{font-size:68px}
+ .card{padding:30px}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{
+  transition:none!important;
+ }
+}
 </style>
 </head>
+
 <body>
+
 <header>
  <div class="logo">ZAIN</div>
- <div class="sub">SENTINEL X</div>
- <div class="status">● SYSTEM ONLINE</div>
+ <div class="sub">S E N T I N E L &nbsp; X</div>
+ <div class="line"></div>
+
+ <div class="status">
+  <span class="dot"></span>
+  SYSTEM ONLINE
+ </div>
 </header>
+
 <main>
- <h2>CONTROL CENTER</h2>
+
+ <div class="section">
+  <h2>CONTROL CENTER</h2>
+  <span class="version">ULTRA EDITION</span>
+ </div>
+
  <a class="card" href="scanner.html">
-  <h3>01 / URL SCANNER</h3>
-  <p>Analyze suspicious links and detect potential security risks.</p>
-  <div class="arrow">OPEN SCANNER →</div>
+  <div class="card-top">
+   <span class="number">MODULE 01 / SECURITY</span>
+   <span class="symbol">⌕</span>
+  </div>
+
+  <h3>URL SECURITY SCANNER</h3>
+
+  <p>
+   Analyze suspicious links and inspect URLs
+   for potential security risks.
+  </p>
+
+  <div class="arrow">
+   <span>OPEN SECURITY SCANNER</span>
+   <span>→</span>
+  </div>
  </a>
+
  <a class="card" href="speed-test.html">
-  <h3>02 / SPEED TEST</h3>
-  <p>Measure your internet connection performance.</p>
-  <div class="arrow">OPEN SPEED TEST →</div>
+  <div class="card-top">
+   <span class="number">MODULE 02 / NETWORK</span>
+   <span class="symbol">⌁</span>
+  </div>
+
+  <h3>NETWORK SPEED TEST</h3>
+
+  <p>
+   Measure your internet connection and
+   monitor network performance.
+  </p>
+
+  <div class="arrow">
+   <span>OPEN SPEED TEST</span>
+   <span>→</span>
+  </div>
  </a>
+
+ <div class="info">
+  <div class="info-title">SYSTEM INFORMATION</div>
+
+  <div class="info-row">
+   <span>PLATFORM</span>
+   <span>WEB APPLICATION</span>
+  </div>
+
+  <div class="info-row">
+   <span>INTERFACE</span>
+   <span>ROYAL BLUE ULTRA</span>
+  </div>
+
+  <div class="info-row">
+   <span>STATUS</span>
+   <span class="online">OPERATIONAL ●</span>
+  </div>
+ </div>
+
 </main>
-<footer>ZAIN PROJECTS · CYBER SECURITY INTERFACE</footer>
+
+<footer>
+ ZAIN PROJECTS<br>
+ CYBER SECURITY INTERFACE · 2026
+</footer>
+
 </body>
 </html>
