@@ -1,5 +1,5 @@
 {
-  "id": "zain-sentinel",
+  "id": "/ZAIN-PROJECTS/",
   "name": "ZAIN SENTINEL",
   "short_name": "ZAIN",
   "description": "ZAIN PROJECT - Smart Cybersecurity Platform",
@@ -11,9 +11,9 @@
   "theme_color": "#080d18",
   "icons": [
     {
-      "src": "/ZAIN-PROJECTS/zain_classic_blue_Z.jpg",
-      "sizes": "any",
-      "type": "image/jpeg",
+      "src": "/ZAIN-PROJECTS/resize-image-to-512x512-512x512-image-512x512%20(1).png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
